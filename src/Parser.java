@@ -1,62 +1,109 @@
 import java.io.*;
+import java.util.List;
 import java.util.*;
+import javax.swing.*;
 
-public class Main {
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.*;
 
+public class Parser extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static pathPanel pp;
+	
+	private JTextField pathField = new JTextField(50);
+	private JTextField totalReviewCount = new JTextField(5);
+	
+	
 	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
+		Parser window = new Parser();
+		window.setVisible(true);
+		}
 		
-		//System.out.println("Enter path of review camp csv file");
+	public Parser() {
+		setTitle("Review Camp Parser");
+		setSize(1000,1000);
+		setLayout(new BorderLayout());
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		// Define path for where file will be pulled from
+		pp = new pathPanel();
+		add(pp, BorderLayout.NORTH);
 		
-		//String path = scan.nextLine();
-		String path = "C:\\Users\\tyler\\Desktop\\PG6171 Review Camp.csv";
 		
-		File file = new File(path);
+		validate();
 		
-		try{
-			// Create new scanner that will iterate across CSV and delimit using provided delimiter tool
-			Scanner inputStream = new Scanner(file);
-			//inputStream.useDelimiter("\n");			
-			
-			
-			// Create a new Array List of Reviews
-			List<Review> reviews = new ArrayList<Review>();
-			
-			// While stuff still exists in the stream...
-			while(inputStream.hasNext()) {
-				
-				String data = inputStream.nextLine();
-				data.trim();
-				
-				// Split each unprocessed review into individual datapoints
-				String[] splitData = data.split(",", 5); 
+		JButton pathSubmit = new JButton("Submit");
+		pathSubmit.addActionListener(new pathSubmitBtnListener());
+	
+		JPanel content = new JPanel();
+		 
+		content.add(new JLabel("Enter Path of Review Camp CSV file:"));
+		content.add(pathField);
+		content.add(pathSubmit);
+		 
+		 
+		
+	}
+	
+	public class pathSubmitBtnListener implements ActionListener{
 
-				// Create a new review object and populate
-				Review r = new Review();
-				r.date = splitData[0];
-				r.website = splitData[1];
-				r.star = splitData[2];
-				r.title = splitData[3];
-				r.body = splitData[4];
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
 				
-				// Add new review object to list
-				reviews.add(r);
+			
+			// Define path for where file will be pulled from
+			String path = "C:\\Users\\tyler\\Documents\\Waiss & Co\\ReviewCampParser\\ReviewCampParser\\PG6025.csv";
+			
+			File file = new File(path);
+			
+			try{
+				// Create new scanner that will iterate across CSV and delimit using provided delimiter tool
+				Scanner inputStream = new Scanner(file);
+				//inputStream.useDelimiter("\n");			
+				
+				
+				// Create a new Array List of Reviews
+				List<Review> reviews = new ArrayList<Review>();
+				
+				// While stuff still exists in the stream...
+				while(inputStream.hasNext()) {
+					
+					String data = inputStream.nextLine();
+					data.trim();
+					
+					// Split each unprocessed review into individual datapoints
+					String[] splitData = data.split(",", 5); 
+
+					// Create a new review object and populate
+					Review r = new Review();
+					r.date = splitData[0];
+					r.website = splitData[1];
+					r.star = splitData[2];
+					r.title = splitData[3];
+					r.body = splitData[4];
+					
+					// Add new review object to list
+					reviews.add(r);
+				}
+				
+				// Close the stream
+				inputStream.close();
+				
+				reportOut(reviews);
 			}
 			
-			// Close the stream
-			inputStream.close();
-			
-			reportOut(reviews);
+			// In the event the file path DNE...
+			catch(FileNotFoundException e){
+				e.printStackTrace();
+				
+			}
 		}
+	}
 		
-		// In the event the file path DNE...
-		catch(FileNotFoundException e){
-			e.printStackTrace();
-			
-		}
-	}	
 
 	public static void reportOut(List<Review> reviews) {
 		System.out.println("#####    REPORT    ##### \n \n");
