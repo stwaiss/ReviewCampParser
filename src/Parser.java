@@ -1,28 +1,19 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 import javax.swing.*;
-
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.event.*;
+
 
 public class Parser extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 	public static pathPanel pp;
-	
-	private JTextField pathField = new JTextField(50);
-	private JTextField totalReviewCount = new JTextField(5);
-	
-	public static void main(String[] args) {
-		Parser window = new Parser();
-		window.setVisible(true);
-		}
-		
+	public static ResultsPanel rp;
+	private static List<Review> reviews = new ArrayList<Review>();
+				
 	public Parser() {
 		//Boilerplate JFrame methods
 		setTitle("Review Camp Parser");
@@ -46,13 +37,23 @@ public class Parser extends JFrame {
 		//Add a new JPanel for the console and add to JFrame
 		JPanel consolePanel = new JPanel();
 		add(consolePanel,BorderLayout.WEST);
-		//consolePanel.setSize(200,600);
 		consolePanel.add(scroll);
 		
+		rp = new ResultsPanel();
+		add(rp,BorderLayout.CENTER);
 		
+		repaint();
 		
 		
 		validate();
 		 
+	}
+	
+	public static List<Review> getReviews() {
+		return reviews;
+	}
+	
+	public static void setReviews(List<Review> r){
+		reviews = r;
 	}
 }	
