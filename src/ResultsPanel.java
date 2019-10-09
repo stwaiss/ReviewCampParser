@@ -16,6 +16,9 @@ public class ResultsPanel extends JPanel{
 	private static JTextField[] starStatTextFields = {new JTextField(4), new JTextField(4), 
 			new JTextField(4), new JTextField(4), new JTextField(4), new JTextField(4),
 			new JTextField(4)};
+	private static JLabel[] sellerStatLabels = new JLabel[5];
+	private static JTextField[] sellerStatTextFields = {new JTextField(4), new JTextField(4), 
+			new JTextField(4), new JTextField(4), new JTextField(4)};
 	
 	private static List<Review> reviews = new ArrayList<Review>();
 
@@ -62,17 +65,32 @@ public class ResultsPanel extends JPanel{
 		if(reviews == null) {
 			starStatTextFields[0].setText("0");
 			starStatTextFields[1].setText("0");
+			
+			sellerStatLabels[0] = new JLabel("Seller 1");
+			sellerStatLabels[1] = new JLabel("Seller 2");
+			sellerStatLabels[2] = new JLabel("Seller 3");
+			sellerStatLabels[3] = new JLabel("Seller 4");
+			sellerStatLabels[4] = new JLabel("Seller 5");
 		}
 		
 		else {
 			starStatTextFields[0].setText(Integer.toString(getReviewCount()));
 			starStatTextFields[1].setText(Double.toString(computeAverage(reviews)));
+			
 		}
 		starStatTextFields[2].setText(Integer.toString(starCounts[4]));
 		starStatTextFields[3].setText(Integer.toString(starCounts[3]));
 		starStatTextFields[4].setText(Integer.toString(starCounts[2]));
 		starStatTextFields[5].setText(Integer.toString(starCounts[1]));
 		starStatTextFields[6].setText(Integer.toString(starCounts[0]));
+	
+		sellerStatLabels[0] = new JLabel("Seller 1");
+		sellerStatLabels[1] = new JLabel("Seller 2");
+		sellerStatLabels[2] = new JLabel("Seller 3");
+		sellerStatLabels[3] = new JLabel("Seller 4");
+		sellerStatLabels[4] = new JLabel("Seller 5");
+	
+	
 	}
 	
 	public static int getReviewCount() {

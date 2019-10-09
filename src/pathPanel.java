@@ -44,7 +44,7 @@ public class pathPanel extends JPanel{
 			String path = pathField.getText();
 			File file = new File(path);
 			
-			System.out.println("I see you clicked a button...\n");
+			//System.out.println("I see you clicked a button...\n");
 			
 			//every time submit is clicked, clear list before starting
 			reviews.clear();
