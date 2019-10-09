@@ -18,14 +18,16 @@ public class ResultsPanel extends JPanel{
 			new JTextField(4)};
 	
 	private static List<Review> reviews = new ArrayList<Review>();
-	
+
 	
 	public ResultsPanel() {
 		reviews = Parser.getReviews();
-
+		
 		fillStarStats();
 		for(int i = 0; i < 7; i++) {
+			starStatLabels[i].setHorizontalAlignment(JLabel.CENTER);
 			add(starStatLabels[i]);
+			starStatTextFields[i].setHorizontalAlignment(JTextField.CENTER);
 			add(starStatTextFields[i]);
 		}		
 	}

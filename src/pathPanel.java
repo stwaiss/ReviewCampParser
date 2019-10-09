@@ -26,7 +26,7 @@ public class pathPanel extends JPanel{
 		pathSubmit.addActionListener(new pathSubmitBtnListener());
 	
 		 
-		add(new JLabel("Enter Path of Review Camp CSV file:"));
+		add(new JLabel("Enter Path of Review Camp txt file:"));
 		add(pathField);
 		add(pathSubmit);
 				
@@ -44,7 +44,7 @@ public class pathPanel extends JPanel{
 			String path = pathField.getText();
 			File file = new File(path);
 			
-			System.out.println("I see you clicked a button...");
+			System.out.println("I see you clicked a button...\n");
 			
 			//every time submit is clicked, clear list before starting
 			reviews.clear();
@@ -53,7 +53,7 @@ public class pathPanel extends JPanel{
 			try{
 				// Create new scanner that will iterate across CSV and delimit using provided delimiter tool
 				Scanner inputStream = new Scanner(file);
-				//inputStream.useDelimiter("\n");			
+				inputStream.useDelimiter("\t");			
 				
 				
 				
@@ -64,7 +64,7 @@ public class pathPanel extends JPanel{
 					data.trim();
 					
 					// Split each unprocessed review into individual datapoints
-					String[] splitData = data.split(",", 5); 
+					String[] splitData = data.split("\t", 5); 
 
 					// Create a new review object and populate
 					Review r = new Review();
@@ -82,16 +82,18 @@ public class pathPanel extends JPanel{
 				inputStream.close();
 				
 				Parser.setReviews(reviews);
-				System.out.println(reviews.size()+ " reviews have been added");
+				System.out.println(reviews.size() + " reviews have been added \n");
 				ResultsPanel.fillStarStats();
 				
 			}
 			
 			// In the event the file path DNE...
 			catch(FileNotFoundException e){
-				System.out.println("File path does not exist. Please try again");
+				System.out.println("File path does not exist. Please try again\n");
 				pathField.setText("");
-				
+			}
+			catch(ArrayIndexOutOfBoundsException e) {
+				System.out.println("Looks like something isn't right... Perhaps the file type?\nPlease try again\n");
 			}
 		}
 	}
