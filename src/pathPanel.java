@@ -80,9 +80,33 @@ public class pathPanel extends JPanel{
 				// Close the stream
 				inputStream.close();
 				
+				//Create pop up box for selecting product type
+				Object[] options = {"Coffee Maker", "Grill", "Groomer", "Shaver"};
+				String response;
+				int count = 0;
+				
+				//Try to prevent from escaping without picking an option. 
+				do {
+					count++;
+					response = (String) JOptionPane.showInputDialog(
+							null,
+							"Please select product type\nAttempt " + (count+1),
+							"Product Type Selection",
+							JOptionPane.DEFAULT_OPTION,
+							null,
+							options,
+							(String) options[0]);
+				}
+				while(response == null && count < 2);
+				
+				System.out.println("You've selected a " + response);
+				
+				//Write to console and begin populating statistics boxes
 				Parser.setReviews(reviews);
 				System.out.println(reviews.size() + " reviews have been added \n");
-				ResultsPanel.fillStarStats();
+				statsPanel.fillStarStats();
+				
+				
 				
 			}
 			

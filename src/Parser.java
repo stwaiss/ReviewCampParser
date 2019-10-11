@@ -14,7 +14,8 @@ public class Parser extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	public static pathPanel pp;
-	public static ResultsPanel rp;
+	public static statsPanel statPanel;
+	public static graphPanel graphPanel;
 	private static List<Review> reviews = new ArrayList<Review>();
 	
 	//**********************************************************************
@@ -22,7 +23,7 @@ public class Parser extends JFrame {
 	public Parser() {
 		//Boilerplate JFrame methods
 		setTitle("Review Camp Parser");
-		setSize(1000,300);
+		setSize(1000,350);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -58,11 +59,21 @@ public class Parser extends JFrame {
 		consolePanel.add(scroll);
 		
 		//Add a new JPanel for numerical results
-		rp = new ResultsPanel();
-		//rp.setSize(300, 300);
-		rp.setLayout(new GridLayout(7,6,5,5));
-		rp.setBorder(new EmptyBorder((new Insets(20,20,20,20))));
-		add(rp);
+		statPanel = new statsPanel();
+		statPanel.setLayout(new GridLayout(7,6,5,5));
+		statPanel.setBorder(new EmptyBorder((new Insets(20,20,20,20))));
+		add(statPanel);
+		
+		
+		//Add a new JPanel for graphs
+		graphPanel = new graphPanel();
+		//graphPanel.setLayout(new GridLayout(7,6,5,5));
+		graphPanel.setBorder(new EmptyBorder((new Insets(20,20,20,20))));
+		add(graphPanel, BorderLayout.SOUTH);
+		
+		
+		
+		
 		repaint();
 		
 		

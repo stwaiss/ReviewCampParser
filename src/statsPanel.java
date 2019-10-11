@@ -4,7 +4,7 @@ import java.util.List;
 import javax.swing.*;
 
 
-public class ResultsPanel extends JPanel{
+public class statsPanel extends JPanel{
 	/**
 	 * 
 	 */
@@ -38,7 +38,7 @@ public class ResultsPanel extends JPanel{
 	//*********************************************************************************
 	
 	//constructor
-	public ResultsPanel() {
+	public statsPanel() {
 		reviews = Parser.getReviews();
 		
 		fillStarStats();
@@ -70,7 +70,7 @@ public class ResultsPanel extends JPanel{
 				add(new JLabel(""));
 				add(new JLabel(""));
 			}
-			
+				
 		}		
 	}
 	
