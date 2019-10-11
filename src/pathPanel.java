@@ -27,7 +27,7 @@ public class pathPanel extends JPanel{
 		pathSubmit.addActionListener(new pathSubmitBtnListener());
 	
 		 
-		add(new JLabel("Enter Path of Review Camp txt file:"));
+		add(new JLabel("Enter path here:"));
 		add(pathField);
 		add(pathSubmit);
 				
@@ -66,7 +66,7 @@ public class pathPanel extends JPanel{
 					String data = inputStream.nextLine();
 					data.trim();
 					
-					// Split each unprocessed review into individual datapoints
+					// Split each unprocessed review into individual data points
 					String[] splitData = data.split("\t", 5); 
 
 					// Create a new review object and populate

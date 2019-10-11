@@ -7,6 +7,7 @@ public class Review {
 	private String body;
 	
 	//*********************************************************************************
+	
 	public Review(String d, String se, String s, String t, String b) {
 		date = d;
 		seller = se;

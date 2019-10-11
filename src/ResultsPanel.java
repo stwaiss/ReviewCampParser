@@ -25,6 +25,14 @@ public class ResultsPanel extends JPanel{
 	private static JTextField[] sellerStatTextFields = {new JTextField(4), new JTextField(4), 
 			new JTextField(4), new JTextField(4), new JTextField(4)};
 	
+	//JLabels for item year statistics
+	private static JLabel[] yearStatLabels = new JLabel[5];
+		
+	//JTextFields for data from year statistics
+	private static JTextField[] yearStatTextFields = {new JTextField(4), new JTextField(4), 
+			new JTextField(4), new JTextField(4), new JTextField(4)};
+	
+	
 	private static List<Review> reviews = new ArrayList<Review>();
 
 	//*********************************************************************************
@@ -37,8 +45,32 @@ public class ResultsPanel extends JPanel{
 		for(int i = 0; i < 7; i++) {
 			starStatLabels[i].setHorizontalAlignment(JLabel.CENTER);
 			add(starStatLabels[i]);
+			
 			starStatTextFields[i].setHorizontalAlignment(JTextField.CENTER);
 			add(starStatTextFields[i]);
+			
+			if(i<5) {
+				sellerStatLabels[i].setHorizontalAlignment(JLabel.CENTER);
+				add(sellerStatLabels[i]);
+				
+				sellerStatTextFields[i].setHorizontalAlignment(JTextField.CENTER);
+				add(sellerStatTextFields[i]);
+				
+				yearStatLabels[i].setHorizontalAlignment(JLabel.CENTER);
+				add(yearStatLabels[i]);
+				
+				yearStatTextFields[i].setHorizontalAlignment(JTextField.CENTER);
+				add(yearStatTextFields[i]);
+			}
+			
+			//add dummy labels to keep grid formatting correct
+			else {
+				add(new JLabel(""));
+				add(new JLabel(""));
+				add(new JLabel(""));
+				add(new JLabel(""));
+			}
+			
 		}		
 	}
 	
@@ -48,33 +80,54 @@ public class ResultsPanel extends JPanel{
 		reviews = r;
 	}
 	
+	//getter for size of list
+	public static int getReviewCount() {
+		return reviews.size();
+	}
+	
 	//Method used to fill in the JTextFields and refresh GUI
 	public static void fillStarStats() {
 		reviews = Parser.getReviews();
 		
-		//create an int array to hold numbers of individual reviews
+		//create variable array to hold counts of stars, sellers, and years
 		int[] starCounts;
 		String[][] sellerCounts;
+		String[][] yearCounts;
 		
 		//if the files haven't been parsed and there's consequently nothing in the reviews list
 		if(getReviewCount() == 0) {
 			//define the array as blank
 			starCounts = new int[5];
-			sellerCounts = new String[20][2];
+			sellerCounts = new String[5][2];
+			yearCounts = new String[5][2];
+			
+			//Set Count and Average to 0
 			starStatTextFields[0].setText("0");
 			starStatTextFields[1].setText("0");
 		}
 		
-		//else, run through numDistribution to fill the array
+		//else, run through distribution methods to fill the arrays
 		else {
 			starCounts = starDistribution(); 
 			sellerCounts = sellerDistribution();
+			yearCounts = yearDistribution();
+			
+			//Set Count and Average to correct values
 			starStatTextFields[0].setText(Integer.toString(getReviewCount()));
 			starStatTextFields[1].setText(Double.toString(computeAverage(reviews)));
+			
+			//Set JLabel text values to actual seller and year values
+			for(int i=0; i<5; i++) {
+				sellerStatLabels[i].setText(sellerCounts[i][0]);
+				sellerStatTextFields[i].setText(sellerCounts[i][1]);
+				
+				yearStatLabels[i].setText(yearCounts[i][0]);
+				yearStatTextFields[i].setText(yearCounts[i][1]);
+			}
 		}
 		
 		
-		//Make a 7x2 table of labels and text fields to populate the count, average, and # of star reviews
+		//Make table of labels and text fields to populate the count, average, and # of star reviews
 		starStatLabels[0] = new JLabel("Count");
 		starStatLabels[1]= new JLabel("Average");
 		starStatLabels[2] = new JLabel("5 Star");
@@ -83,8 +136,6 @@ public class ResultsPanel extends JPanel{
 		starStatLabels[5] = new JLabel("2 Star");
 		starStatLabels[6] = new JLabel("1 Star");
 			
-
-		
 		starStatTextFields[2].setText(Integer.toString(starCounts[4]));
 		starStatTextFields[3].setText(Integer.toString(starCounts[3]));
 		starStatTextFields[4].setText(Integer.toString(starCounts[2]));
@@ -96,15 +147,14 @@ public class ResultsPanel extends JPanel{
 		sellerStatLabels[2] = new JLabel("Seller 3");
 		sellerStatLabels[3] = new JLabel("Seller 4");
 		sellerStatLabels[4] = new JLabel("Seller 5");
-	
-	
+		
+		yearStatLabels[0] = new JLabel("Year 1");
+		yearStatLabels[1] = new JLabel("Year 2");
+		yearStatLabels[2] = new JLabel("Year 3");
+		yearStatLabels[3] = new JLabel("Year 4");
+		yearStatLabels[4] = new JLabel("Year 5");
 	}
 	
-	//getter for size of list
-	public static int getReviewCount() {
-		return reviews.size();
-	}
-
 	//Method to compute average of all star reviews from parsed file
 	public static double computeAverage(List<Review> reviews) {
 		double sum = 0;
@@ -188,7 +238,7 @@ public class ResultsPanel extends JPanel{
 		
 		
 		// create new array, first column is seller name, second is count
-		String[][] table = new String[20][2];
+		String[][] table = new String[5][2];
 		int nthSeller = 0;
 		int nthSellerCount = 0;
 		
@@ -214,25 +264,25 @@ public class ResultsPanel extends JPanel{
 				
 				// move down to next row and set the current seller
 				table[nthSeller][0] = allSellers[i];
+				nthSellerCount++;
 			}
 		}
 		// save final nthSeller count for nthSeller in table
 		table[nthSeller][1] = Integer.toString(nthSellerCount);
 		
-		for(int i = 0; i < 20; i++) {
-			if(table[i][0] != null) {
-				System.out.println(table[i][0] + " had " + table[i][1] + " reviews");
-			}
-		}
+		/*
+		 * //print to console counts per seller for(int i = 0; i < 5; i++) {
+		 * if(table[i][0] != null) { System.out.println(table[i][0] + " had " +
+		 * table[i][1] + " reviews"); } }
+		 */
 		
 		return table;
 		
 	}
 	
-	
-	public static void sortByYear(List<Review> reviews) {
+	public static String[][] yearDistribution() {
 		// create new string array to store all the years of each review
-		int[] allYears = new int[reviews.size()];
+		String[] allYears = new String[reviews.size()];
 		
 		// create new review array to treat list like array
 		Review[] allReviewsArray = new Review[reviews.size()];
@@ -241,7 +291,7 @@ public class ResultsPanel extends JPanel{
 		// iterate over new review array, delimit each date by /, and store year value into allYears
 		for(int i = 0; i< allReviewsArray.length; i++) {
 			String[] thisDate = allReviewsArray[i].getDate().split("/");
-			allYears[i] = Integer.valueOf(thisDate[2]);
+			allYears[i] = thisDate[2];
 		}
 		
 		// sort allYears
@@ -249,24 +299,24 @@ public class ResultsPanel extends JPanel{
 		
 		
 		// create new array
-		int[][] table = new int[20][2];
+		String[][] table = new String[5][2];
 		int nthYear = 0;
 		int nthYearCount = 0;
 		
 		table[0][0] = allYears[0];
 
-		// iterate over allYears to count occurences of each year into table
+		// iterate over allYears to count occurrences of each year into table
 		for(int i = 0; i < allYears.length; i++) {
 			
 			// if  current value of allYears equals current year, increment count
-			if(allYears[i] == table[nthYear][0]) {
+			if(allYears[i].equalsIgnoreCase(table[nthYear][0])) {
 				nthYearCount++;
 			}
 			
 		
 			else {
-				// assign count of nth Year to occurence column
-				table[nthYear][1] = nthYearCount;
+				// assign count of nth Year to occurrence column
+				table[nthYear][1] = Integer.toString(nthYearCount);
 				
 				// reset count
 				nthYearCount = 0;
@@ -276,16 +326,18 @@ public class ResultsPanel extends JPanel{
 				
 				// move down to next row and set the current year
 				table[nthYear][0] = allYears[i];
+				nthYearCount++;
 			}
 		}
 		// save final nthYear count for nthYear in table
-		table[nthYear][1] = nthYearCount;
+		table[nthYear][1] = Integer.toString(nthYearCount);
 		
-		for(int i = 0; i < 20; i++) {
-			if(table[i][0] == 0) {
-				break;
-			}
-			System.out.println(table[i][0] + " had " + table[i][1] + " reviews");
-		}
+		/*
+		 * //print to console counts per seller for(int i = 0; i < 5; i++) {
+		 * if(table[i][0] != null) { System.out.println(table[i][0] + " had " +
+		 * table[i][1] + " reviews"); } }
+		 */
+		
+		return table;
 	}
 }

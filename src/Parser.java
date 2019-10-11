@@ -22,7 +22,7 @@ public class Parser extends JFrame {
 	public Parser() {
 		//Boilerplate JFrame methods
 		setTitle("Review Camp Parser");
-		setSize(1000,1000);
+		setSize(1000,300);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -53,14 +53,15 @@ public class Parser extends JFrame {
 		
 		//Add a new JPanel for the console and add to JFrame
 		JPanel consolePanel = new JPanel();
+		consolePanel.setBorder(new EmptyBorder((new Insets(20,20,20,20))));
 		add(consolePanel,BorderLayout.WEST);
 		consolePanel.add(scroll);
 		
 		//Add a new JPanel for numerical results
 		rp = new ResultsPanel();
-		rp.setSize(300, 300);
-		rp.setLayout(new GridLayout(7,4,5,5));
-		rp.setBorder(new EmptyBorder((new Insets(0,50,0,50))));
+		//rp.setSize(300, 300);
+		rp.setLayout(new GridLayout(7,6,5,5));
+		rp.setBorder(new EmptyBorder((new Insets(20,20,20,20))));
 		add(rp);
 		repaint();
 		
