@@ -72,8 +72,6 @@ public class Parser extends JFrame {
 		add(graphPanel, BorderLayout.SOUTH);
 		
 		
-		
-		
 		repaint();
 		
 		

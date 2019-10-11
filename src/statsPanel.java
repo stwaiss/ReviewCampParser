@@ -33,6 +33,8 @@ public class statsPanel extends JPanel{
 			new JTextField(4), new JTextField(4), new JTextField(4)};
 	
 	
+	private static JTextField ptypeText = new JTextField("");
+	
 	private static List<Review> reviews = new ArrayList<Review>();
 
 	//*********************************************************************************
@@ -41,7 +43,7 @@ public class statsPanel extends JPanel{
 	public statsPanel() {
 		reviews = Parser.getReviews();
 		
-		fillStarStats();
+		fillStatPanelStats();
 		for(int i = 0; i < 7; i++) {
 			starStatLabels[i].setHorizontalAlignment(JLabel.CENTER);
 			add(starStatLabels[i]);
@@ -64,11 +66,23 @@ public class statsPanel extends JPanel{
 			}
 			
 			//add dummy labels to keep grid formatting correct
+			else if(i == 5) {
+				add(new JLabel(""));
+				add(new JLabel(""));
+				add(new JLabel(""));
+				add(new JLabel(""));
+			}
+			
 			else {
 				add(new JLabel(""));
 				add(new JLabel(""));
-				add(new JLabel(""));
-				add(new JLabel(""));
+				
+				JLabel ptypeLabel = new JLabel("Type");
+				ptypeLabel.setHorizontalAlignment(JLabel.CENTER);
+				add(ptypeLabel);
+				
+				ptypeText.setHorizontalAlignment(JTextField.CENTER);
+				add(ptypeText);
 			}
 				
 		}		
@@ -86,7 +100,7 @@ public class statsPanel extends JPanel{
 	}
 	
 	//Method used to fill in the JTextFields and refresh GUI
-	public static void fillStarStats() {
+	public static void fillStatPanelStats() {
 		reviews = Parser.getReviews();
 		
 		//create variable array to hold counts of stars, sellers, and years
@@ -153,6 +167,9 @@ public class statsPanel extends JPanel{
 		yearStatLabels[2] = new JLabel("Year 3");
 		yearStatLabels[3] = new JLabel("Year 4");
 		yearStatLabels[4] = new JLabel("Year 5");
+		
+		ptypeText.setText(pathPanel.productType);
+		
 	}
 	
 	//Method to compute average of all star reviews from parsed file
