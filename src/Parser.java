@@ -16,7 +16,9 @@ public class Parser extends JFrame {
 	public static pathPanel pp;
 	public static ResultsPanel rp;
 	private static List<Review> reviews = new ArrayList<Review>();
-				
+	
+	//**********************************************************************
+	
 	public Parser() {
 		//Boilerplate JFrame methods
 		setTitle("Review Camp Parser");
@@ -66,6 +68,8 @@ public class Parser extends JFrame {
 		validate();
 		 
 	}
+	
+	//********************************************************************************
 	
 	public static List<Review> getReviews() {
 		return reviews;

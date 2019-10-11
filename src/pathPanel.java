@@ -17,6 +17,7 @@ public class pathPanel extends JPanel{
 	private JTextField pathField = new JTextField(50);
 	private List<Review> reviews = new ArrayList<Review>();
 
+	//*******************************************************************************
 	
 	public pathPanel() {
 		setSize(100,600);
@@ -33,6 +34,8 @@ public class pathPanel extends JPanel{
 		setVisible(true);
 		
 	}
+	
+	//***********************************************************************************
 	
 	public class pathSubmitBtnListener implements ActionListener{
 
@@ -67,12 +70,8 @@ public class pathPanel extends JPanel{
 					String[] splitData = data.split("\t", 5); 
 
 					// Create a new review object and populate
-					Review r = new Review();
-					r.date = splitData[0];
-					r.website = splitData[1];
-					r.star = splitData[2];
-					r.title = splitData[3];
-					r.body = splitData[4];
+					Review r = new Review(splitData[0],splitData[1],splitData[2],
+							splitData[3],splitData[4]);
 					
 					// Add new review object to list
 					reviews.add(r);
