@@ -1,7 +1,1 @@
-C:\Users\246767\OneDrive - Spectrum Brands, Inc\Documents\ReviewCampParser\PG6025 tab.txt
-
-C:\Users\246767\OneDrive - Spectrum Brands, Inc\Documents\ReviewCampParser\MPT05A.txt
-
-C:\Users\246767\OneDrive - Spectrum Brands, Inc\Documents\ReviewCampParser\German Product.xlsx
-
-C:\Users\246767\OneDrive - Spectrum Brands, Inc\Documents\MPT05A.xlsx
+C:\Users\246767\OneDrive - Spectrum Brands, Inc\Documents\ReviewCampParser\Grill 1.xlsx

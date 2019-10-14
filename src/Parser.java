@@ -16,6 +16,7 @@ public class Parser extends JFrame {
 	public static statsPanel statPanel;
 	public static graphPanel graphPanel;
 	public static choicePanel choicePanel;
+	public static screenCapPanel screenCapPanel;
 	private static List<Review> reviews = new ArrayList<Review>();
 	
 	//**********************************************************************
@@ -93,6 +94,9 @@ public class Parser extends JFrame {
 		graphPanel = new graphPanel();
 		infoPanel.add(graphPanel);
 				
+		screenCapPanel = new screenCapPanel();
+		add(screenCapPanel, BorderLayout.SOUTH);
+		
 		
 		repaint();
 		validate();
