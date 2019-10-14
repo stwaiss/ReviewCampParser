@@ -2,10 +2,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
-
 import java.awt.*;
 
 
@@ -63,7 +61,8 @@ public class Parser extends JFrame {
 		PrintStream out = new PrintStream (new TextAreaOutputStream (taConsole));
 		System.setOut(out);
 		
-		System.out.println("Save your excel spreadsheet as a tab-delimited text file, and enter the file path into the box above! \n");
+		System.out.println("Delete all header data, and save your excel file."
+				+ "\nEnter the file path into the box above! \n");
 		
 		//Add a new JPanel for the console and add to JFrame
 		JPanel consolePanel = new JPanel();

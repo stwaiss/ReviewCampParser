@@ -178,7 +178,8 @@ public class statsPanel extends JPanel{
 		
 		//Iterate over list and sum the star ratings
 		for(int i = 0; i < reviews.size(); i++) {
-			int rating = Integer.valueOf(reviews.get(i).getStar());
+			Double doubleRating = Double.valueOf(reviews.get(i).getStar());
+			int rating = doubleRating.intValue();
 			sum += rating;
 			
 		}
@@ -207,10 +208,12 @@ public class statsPanel extends JPanel{
 		for(int i = 0; i < reviews.size(); i++) {
 			
 			//pull star value from review
-			int thisStarRating = Integer.valueOf(reviews.get(i).getStar());
+			Double thisStarRatingDouble = Double.valueOf(reviews.get(i).getStar());
+			int thisStarRatingInt = thisStarRatingDouble.intValue();
+			
 			
 			//switch case depending on value, and then add to that count
-			switch(thisStarRating) {
+			switch(thisStarRatingInt) {
 				case 1:
 					counts[0]++;
 					break;
@@ -307,8 +310,8 @@ public class statsPanel extends JPanel{
 		
 		// iterate over new review array, delimit each date by /, and store year value into allYears
 		for(int i = 0; i< allReviewsArray.length; i++) {
-			String[] thisDate = allReviewsArray[i].getDate().split("/");
-			allYears[i] = thisDate[2];
+			String[] thisDate = allReviewsArray[i].getDate().split("-");
+			allYears[i] = thisDate[0];
 		}
 		
 		// sort allYears
@@ -342,8 +345,13 @@ public class statsPanel extends JPanel{
 				nthYear++;
 				
 				// move down to next row and set the current year
-				table[nthYear][0] = allYears[i];
-				nthYearCount++;
+				try{
+					table[nthYear][0] = allYears[i];
+					nthYearCount++;
+				} catch(ArrayIndexOutOfBoundsException e) {
+					System.out.println(i);
+					break;
+				}
 			}
 		}
 		// save final nthYear count for nthYear in table
