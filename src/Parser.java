@@ -65,11 +65,11 @@ public class Parser extends JFrame {
 		add(statPanel);
 		
 		
-		//Add a new JPanel for graphs
-		graphPanel = new graphPanel();
-		//graphPanel.setLayout(new GridLayout(7,6,5,5));
-		graphPanel.setBorder(new EmptyBorder((new Insets(20,20,20,20))));
-		add(graphPanel, BorderLayout.SOUTH);
+		/*
+		 * //Add a new JPanel for graphs graphPanel = new graphPanel();
+		 * //graphPanel.setLayout(new GridLayout(7,6,5,5)); graphPanel.setBorder(new
+		 * EmptyBorder((new Insets(20,20,20,20)))); add(graphPanel, BorderLayout.SOUTH);
+		 */
 		
 		
 		repaint();
