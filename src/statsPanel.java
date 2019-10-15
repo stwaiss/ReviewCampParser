@@ -11,25 +11,25 @@ public class statsPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 
 	//JLabels for star rating statistics
-	private static JLabel[] starStatLabels = new JLabel[7];
+	public static JLabel[] starStatLabels = new JLabel[7];
 	
 	//JTextFields for data from star rating statistics
-	private static JTextField[] starStatTextFields = {new JTextField(4), new JTextField(4), 
+	public static JTextField[] starStatTextFields = {new JTextField(4), new JTextField(4), 
 			new JTextField(4), new JTextField(4), new JTextField(4), new JTextField(4),
 			new JTextField(4)};
 	
 	//JLabels for item seller statistics
-	private static JLabel[] sellerStatLabels = new JLabel[5];
+	public static JLabel[] sellerStatLabels = new JLabel[5];
 	
 	//JTextFields for data from seller statistics
-	private static JTextField[] sellerStatTextFields = {new JTextField(4), new JTextField(4), 
+	public static JTextField[] sellerStatTextFields = {new JTextField(4), new JTextField(4), 
 			new JTextField(4), new JTextField(4), new JTextField(4)};
 	
 	//JLabels for item year statistics
-	private static JLabel[] yearStatLabels = new JLabel[5];
+	public static JLabel[] yearStatLabels = new JLabel[5];
 		
 	//JTextFields for data from year statistics
-	private static JTextField[] yearStatTextFields = {new JTextField(4), new JTextField(4), 
+	public static JTextField[] yearStatTextFields = {new JTextField(4), new JTextField(4), 
 			new JTextField(4), new JTextField(4), new JTextField(4)};
 	
 	
@@ -355,7 +355,7 @@ public class statsPanel extends JPanel{
 			}
 		}
 		// save final nthYear count for nthYear in table
-		table[nthYear][1] = Integer.toString(nthYearCount);
+		//table[nthYear][1] = Integer.toString(nthYearCount);
 		
 		/*
 		 * //print to console counts per seller for(int i = 0; i < 5; i++) {

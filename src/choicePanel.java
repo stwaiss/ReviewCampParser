@@ -1,17 +1,13 @@
 import java.awt.Dimension;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 
 public class choicePanel extends JPanel{
 	
 	private static JRadioButton[] options = new JRadioButton[4];
-	
+	ButtonGroup group = new ButtonGroup();
 	public choicePanel() {
 		
 		//set border and layout type
@@ -20,18 +16,17 @@ public class choicePanel extends JPanel{
 		
 		//define options array to include 4 JRadioButtons
 		options[0] = new JRadioButton("By Star Rating");
+		options[0].addActionListener(new graphPanel.totalStarRatingListener());
+		
 		options[1] = new JRadioButton("By Star Rating vs Year");
+		options[1].addActionListener(new graphPanel.starRatingVsYearListener());
+		
 		options[2] = new JRadioButton("By Star Rating vs Seller");
-		options[3] = new JRadioButton("By Star Rating vs Seller");
+		options[2].addActionListener(new graphPanel.starRatingVsSellerListener());
 		
-		//add a submit button at the bottom
-		JButton submit = new JButton("Submit");
-		submit.setPreferredSize(new Dimension(100,10));
-		submit.addActionListener(new submitBtnListener());
-		submit.setHorizontalAlignment(JButton.CENTER);
+		options[3] = new JRadioButton("Keyword Pareto");
+		options[3].addActionListener(new graphPanel.keywordParetoListener());
 		
-		//Create a new button group for all the radio buttons
-		ButtonGroup group = new ButtonGroup();
 		
 		//add the radio buttons to the group and to the pane, and also add separators for space
 		for (JRadioButton b: options) {
@@ -39,23 +34,9 @@ public class choicePanel extends JPanel{
 			add(b);
 			this.add(Box.createRigidArea(new Dimension(0,10)));
 		}
-		//add the submit button to the panel too!
-		add(submit);
+
 	
 		
 	}
 	
-	public class submitBtnListener implements ActionListener{
-
-		//eventually, it'll pull the radio button that was selected and make a pretty graph. 
-		//BUT WE ARENT THERE YET!
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}
-
 }
