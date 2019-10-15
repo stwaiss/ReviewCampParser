@@ -17,6 +17,7 @@ public class Parser extends JFrame {
 	public static graphPanel graphPanel;
 	public static choicePanel choicePanel;
 	public static screenCapPanel screenCapPanel;
+	public static parserMenuBar menuBar;
 	private static List<Review> reviews = new ArrayList<Review>();
 	
 	//**********************************************************************
@@ -27,6 +28,10 @@ public class Parser extends JFrame {
 		setSize(1000,750);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		//Add menu bar to the top of the frame
+		menuBar = new parserMenuBar();
+		setJMenuBar(menuBar);
 		
 		//Add PathPanel at top of JFrame
 		pp = new pathPanel();

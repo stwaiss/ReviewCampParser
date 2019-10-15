@@ -1,3 +1,6 @@
 /choicePanel$submitBtnListener.class
 /screenCapPanel.class
 /screenCapPanel$submitBtnListener.class
+/parserMenuBar.class
+/parserMenuBar$screenCapListener.class
+/parserMenuBar$exitListener.class
