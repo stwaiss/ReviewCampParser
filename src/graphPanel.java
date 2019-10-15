@@ -8,6 +8,7 @@ import javafx.application.*;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
+import javafx.scene.control.Button;
 import javafx.stage.*;
 
 
@@ -94,6 +95,7 @@ public class graphPanel extends JFXPanel {
 
 			//add series one to bar chart, and put bar chart into scene and stage
 			bc.getData().addAll(series1);
+			
 			Scene scene = new Scene(bc, 1000,500);
 			stage.setScene(scene);
 			stage.show();
@@ -108,7 +110,7 @@ public class graphPanel extends JFXPanel {
 
 			//Only do something if there are reviews in the system
 			if(Parser.getReviews().size() != 0) {
-				System.out.println("Doing something");
+				//System.out.println("Doing something");
 				try {
 					Platform.runLater(new Runnable() {
 						public void run() {
@@ -225,7 +227,7 @@ public class graphPanel extends JFXPanel {
 
 			//Only do something if there are reviews in the system
 			if(Parser.getReviews().size() != 0) {
-				System.out.println("Doing something");
+				//System.out.println("Doing something");
 				try {
 					Platform.runLater(new Runnable() {
 						public void run() {
@@ -370,7 +372,7 @@ public class graphPanel extends JFXPanel {
 
 			//Only do something if there are reviews in the system
 			if(Parser.getReviews().size() != 0) {
-				System.out.println("Doing something");
+				//System.out.println("Doing something");
 				try {
 					Platform.runLater(new Runnable() {
 						public void run() {

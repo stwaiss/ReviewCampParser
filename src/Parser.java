@@ -6,9 +6,6 @@ import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
-
-import javafx.scene.Scene;
-
 import java.awt.*;
 
 
@@ -106,8 +103,6 @@ public class Parser extends JFrame {
 		
 		//Add graphPanel to the infoPanel Wrapper
 		graphPanel = new graphPanel();
-		
-		//graphPanel.setScene(new Scene());
 		infoPanel.add(graphPanel);
 				
 		screenCapPanel = new screenCapPanel();
