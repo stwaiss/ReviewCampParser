@@ -9,4 +9,13 @@ public class keywordSet {
 		keywordList = new ArrayList<String>();
 	}
 	
+	public keywordSet(String type, List<String> keywords) {
+		productType = type;
+		keywordList = keywords;
+	}
+	
+	public String getProductType() {
+		return productType;
+	}
+	
 }

@@ -19,6 +19,8 @@ public class graphPanel extends JPanel {
 		
 		
 		public void setProductType(String type) {
-			productType = type;
+			if(type != null && type != "") {
+				productType = type;
+			}
 		}
 }

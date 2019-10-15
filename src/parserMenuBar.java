@@ -31,6 +31,10 @@ public class parserMenuBar extends JMenuBar {
 		//Create a new Menu for managing settings
 		JMenu settingsMenu = new JMenu("Settings");
 		
+		//
+		JMenuItem viewAllSets = new JMenuItem("View All Keyword Sets");
+		settingsMenu.add(viewAllSets);
+		
 		//Create button to edit product types (grills, shavers, irons, etc...)
 		JMenuItem editProductTypes = new JMenuItem("Edit Product Types");
 		settingsMenu.add(editProductTypes);

@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
@@ -19,6 +21,7 @@ public class Parser extends JFrame {
 	public static screenCapPanel screenCapPanel;
 	public static parserMenuBar menuBar;
 	private static List<Review> reviews = new ArrayList<Review>();
+	private static List<keywordSet> masterKeywordSet = new ArrayList<keywordSet>();
 	
 	//**********************************************************************
 	
@@ -66,6 +69,9 @@ public class Parser extends JFrame {
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		PrintStream out = new PrintStream (new TextAreaOutputStream (taConsole));
 		System.setOut(out);
+		
+		//this has to be down here to force the output to display in the gui
+		readInKeywordSets();
 		
 		System.out.println("Delete all header data, and save your excel file."
 				+ "\nEnter the file path into the box above! \n");
@@ -116,5 +122,55 @@ public class Parser extends JFrame {
 	
 	public static void setReviews(List<Review> r){
 		reviews = r;
+	}
+	
+	public static List<keywordSet> getKeywordSet(){
+		return masterKeywordSet;
+	}
+	
+	//This method pulls all the saved keywords from the txt file and makes objects out of them
+	public void readInKeywordSets() {
+		
+		try {
+			//Open the .txt file
+			File keywordSetsFile = new File("keywordSets.txt");
+			Scanner scanner = new Scanner(keywordSetsFile);
+			scanner.useDelimiter(";");
+			
+			//while there are more lines delimited with a ;
+			while(scanner.hasNext()) {
+				
+				//Save the data
+				String line = scanner.nextLine();
+				
+				//Split the line by the hyphen, trim the whitespace, and save the product type
+				String productType = line.split("-")[0].trim();
+				
+				//Use everything else to save into a string array, split by commas
+				String keywordDataArray[] = line.split("-")[1].split(",");
+				
+				//Create a List to finish the keywordSet object
+				List<String> keywordDataList = new ArrayList<String>();
+				
+				//iterate over the array and save the individual keywords into the list
+				for(String s : keywordDataArray) {
+					keywordDataList.add(s.trim());
+				}
+				
+				//Create a new keywordSet and add to master;
+				keywordSet k = new keywordSet(productType, keywordDataList);
+				masterKeywordSet.add(k);	
+			}
+			
+			
+			System.out.println(masterKeywordSet.size() + " keyword sets were added\n");
+		
+			scanner.close();
+		
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("KeywordSets file failed to load");
+			e.printStackTrace();
+		}
 	}
 }	

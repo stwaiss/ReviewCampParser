@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import javax.swing.*;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -98,10 +96,20 @@ public class pathPanel extends JPanel{
 				fis.close();
 				workbook.close();
 				
-				//Create pop up box for selecting product type 
-				Object[] options = {"Coffee Maker", "Grill", "Groomer", "Shaver"}; int count = 0;
+				//Create pop up box for selecting product type
+				List<keywordSet> keywordSetList = Parser.getKeywordSet();
+				
+				
+				String[] options = new String[keywordSetList.size()];
+
+				for (int i = 0; i < keywordSetList.size(); i++) {
+					options[i] = keywordSetList.get(i).getProductType(); 
+				}
+				
+				Arrays.sort(options);
 				 
 				//Try to prevent from escaping without picking an option. 
+				int count = 0;
 				do { 
 					count++;
 					productType = (String) JOptionPane.showInputDialog( 
@@ -113,6 +121,8 @@ public class pathPanel extends JPanel{
 						options, 
 						(String) options[0]);
 				} while(productType == "" && count < 2);
+				
+				
 			}
 
 			catch (IOException e) {
@@ -124,9 +134,10 @@ public class pathPanel extends JPanel{
 			}
 			
 			 //Write to console and begin populating statistics boxes
-			 Parser.setReviews(reviews); 
-			 System.out.println(reviews.size() + " reviews have been added \n"); 
-			 statsPanel.fillStatPanelStats();
+			Parser.graphPanel.setProductType(productType);
+			Parser.setReviews(reviews); 
+			System.out.println(reviews.size() + " reviews have been added \n"); 
+			statsPanel.fillStatPanelStats();
 
 		}
 	}
