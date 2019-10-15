@@ -30,10 +30,10 @@ public class choicePanel extends JPanel{
 		submit.addActionListener(new submitBtnListener());
 		submit.setHorizontalAlignment(JButton.CENTER);
 		
-		//Create a new button group for all the radiobuttons
+		//Create a new button group for all the radio buttons
 		ButtonGroup group = new ButtonGroup();
 		
-		//add the radiobuttons to the group and to the pane, and also add separators for space
+		//add the radio buttons to the group and to the pane, and also add separators for space
 		for (JRadioButton b: options) {
 			group.add(b);
 			add(b);
