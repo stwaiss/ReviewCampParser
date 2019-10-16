@@ -4,6 +4,10 @@ public class keywordSet {
 	private String productType;
 	public List<String> keywordList;
 	
+	public keywordSet() {
+		
+	}
+	
 	public keywordSet(String type) {
 		productType = type;
 		keywordList = new ArrayList<String>();
@@ -33,4 +37,5 @@ public class keywordSet {
 		
 		return line;
 	}
+	
 }

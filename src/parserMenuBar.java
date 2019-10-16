@@ -34,6 +34,7 @@ public class parserMenuBar extends JMenuBar {
 		//
 		JMenuItem viewAllSets = new JMenuItem("View All Keyword Sets");
 		settingsMenu.add(viewAllSets);
+		viewAllSets.addActionListener(new viewAllSetsListener());
 		
 		//Create button to edit product types (grills, shavers, irons, etc...)
 		JMenuItem editProductTypes = new JMenuItem("Edit Product Types");
@@ -74,6 +75,13 @@ public class parserMenuBar extends JMenuBar {
 	public class exitListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			System.exit(0);
+		}
+	}
+	
+	public class viewAllSetsListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			keywordSetViewOnlyWindow window = new keywordSetViewOnlyWindow();
+			window.setVisible(true);
 		}
 	}
 

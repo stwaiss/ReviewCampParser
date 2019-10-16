@@ -14,7 +14,7 @@ public class Parser extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static pathPanel pp;
+	public static pathPanel pathPanel;
 	public static statsPanel statPanel;
 	public static graphPanel graphPanel;
 	public static choicePanel choicePanel;
@@ -37,8 +37,8 @@ public class Parser extends JFrame {
 		setJMenuBar(menuBar);
 		
 		//Add PathPanel at top of JFrame
-		pp = new pathPanel();
-		add(pp, BorderLayout.NORTH);
+		pathPanel = new pathPanel();
+		add(pathPanel, BorderLayout.NORTH);
 	
 		//Add new JPanel to encapsulate everything not the path panel
 		JPanel lowerWrapper = new JPanel();
@@ -72,6 +72,7 @@ public class Parser extends JFrame {
 		
 		//this has to be down here to force the output to display in the gui
 		readInKeywordSets();
+		writeOutKeywordSets();
 		
 		System.out.println("Delete all header data, and save your excel file."
 				+ "\nEnter the file path into the box above! \n");
@@ -179,5 +180,26 @@ public class Parser extends JFrame {
 			System.out.println("KeywordSets file failed to load");
 			e.printStackTrace();
 		}
+	}
+	
+	public void writeOutKeywordSets() {
+		try {
+			FileWriter fileWriter = new FileWriter("keywordSets.txt");
+			
+			//List<String> test = new ArrayList<String>();
+			//test.add("This is a test!");
+			//masterKeywordSet.add(new keywordSet("Hello", test));
+			
+			for(keywordSet k : masterKeywordSet) {
+				fileWriter.write(k.toString());
+			}
+			
+			fileWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }	

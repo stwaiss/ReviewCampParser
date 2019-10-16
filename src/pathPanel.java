@@ -20,7 +20,7 @@ public class pathPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JTextField pathField = new JTextField(50);
+	public JTextField pathField = new JTextField(50);
 	private List<Review> reviews = new ArrayList<Review>();
 	public static String productType = "";
 
@@ -33,11 +33,11 @@ public class pathPanel extends JPanel{
 
 		JButton pathSubmit = new JButton("Submit");
 		pathSubmit.addActionListener(new pathSubmitBtnListener());
-
+		
 		add(new JLabel("Enter path here:"));
 		add(pathField);
 		add(pathSubmit);
-
+					
 		setVisible(true);
 
 	}
@@ -146,6 +146,7 @@ public class pathPanel extends JPanel{
 		}
 	}
 
+	
 	public List<Review> getReviewList(){
 		return reviews;
 	}
