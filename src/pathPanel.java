@@ -132,6 +132,10 @@ public class pathPanel extends JPanel{
 			catch (ArrayIndexOutOfBoundsException e) {
 				System.out.println("Please make sure there is no header info and that there are only 5 columns of data.");
 			}
+			/*
+			 * catch (AbstractMethodError e) { System.out.println("Abstract Method Error");
+			 * }
+			 */
 			
 			 //Write to console and begin populating statistics boxes
 			Parser.graphPanel.setProductType(productType);

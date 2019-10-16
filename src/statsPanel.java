@@ -349,7 +349,7 @@ public class statsPanel extends JPanel{
 					table[nthYear][0] = allYears[i];
 					nthYearCount++;
 				} catch(ArrayIndexOutOfBoundsException e) {
-					System.out.println(i);
+					//System.out.println(i);
 					break;
 				}
 			}

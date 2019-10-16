@@ -1,6 +1,8 @@
 public class application {
+	public static Parser window;
+	
 	public static void main(String[] args) {
-		Parser window = new Parser();
+		window = new Parser();
 		window.setVisible(true);
 	}
 }
