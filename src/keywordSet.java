@@ -18,4 +18,19 @@ public class keywordSet {
 		return productType;
 	}
 	
+	public String toString() {
+		String line = productType + " - ";
+		
+		for(int i = 0; i < keywordList.size(); i++) {
+			if(i < keywordList.size()-1) {
+				line += (keywordList.get(i) + ", ");
+			}
+			else {
+				line += keywordList.get(i) + "\n";
+			}
+			
+		}
+		
+		return line;
+	}
 }

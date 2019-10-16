@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,6 +50,8 @@ public class statsPanel extends JPanel{
 			add(starStatLabels[i]);
 			
 			starStatTextFields[i].setHorizontalAlignment(JTextField.CENTER);
+			starStatTextFields[i].setEditable(false);
+			starStatTextFields[i].setBackground(Color.white);
 			add(starStatTextFields[i]);
 			
 			if(i<5) {
@@ -56,13 +59,18 @@ public class statsPanel extends JPanel{
 				add(sellerStatLabels[i]);
 				
 				sellerStatTextFields[i].setHorizontalAlignment(JTextField.CENTER);
+				sellerStatTextFields[i].setEditable(false);
+				sellerStatTextFields[i].setBackground(Color.white);
 				add(sellerStatTextFields[i]);
 				
 				yearStatLabels[i].setHorizontalAlignment(JLabel.CENTER);
 				add(yearStatLabels[i]);
 				
 				yearStatTextFields[i].setHorizontalAlignment(JTextField.CENTER);
+				yearStatTextFields[i].setEditable(false);
+				yearStatTextFields[i].setBackground(Color.white);
 				add(yearStatTextFields[i]);
+				
 			}
 			
 			//add dummy labels to keep grid formatting correct
@@ -82,6 +90,8 @@ public class statsPanel extends JPanel{
 				add(ptypeLabel);
 				
 				ptypeText.setHorizontalAlignment(JTextField.CENTER);
+				ptypeText.setEditable(false);
+				ptypeText.setBackground(Color.white);
 				add(ptypeText);
 			}
 				
@@ -114,10 +124,33 @@ public class statsPanel extends JPanel{
 			starCounts = new int[5];
 			sellerCounts = new String[5][2];
 			yearCounts = new String[5][2];
+
+			
+			//Make table of labels and text fields to populate the count, average, and # of star reviews
+			starStatLabels[0] = new JLabel("Count");
+			starStatLabels[1]= new JLabel("Average");
+			starStatLabels[2] = new JLabel("5 Star");
+			starStatLabels[3] = new JLabel("4 Star");
+			starStatLabels[4] = new JLabel("3 Star");
+			starStatLabels[5] = new JLabel("2 Star");
+			starStatLabels[6] = new JLabel("1 Star");
 			
 			//Set Count and Average to 0
 			starStatTextFields[0].setText("0");
 			starStatTextFields[1].setText("0");
+
+		
+			sellerStatLabels[0] = new JLabel("Seller 1");
+			sellerStatLabels[1] = new JLabel("Seller 2");
+			sellerStatLabels[2] = new JLabel("Seller 3");
+			sellerStatLabels[3] = new JLabel("Seller 4");
+			sellerStatLabels[4] = new JLabel("Seller 5");
+			
+			yearStatLabels[0] = new JLabel("Year 1");
+			yearStatLabels[1] = new JLabel("Year 2");
+			yearStatLabels[2] = new JLabel("Year 3");
+			yearStatLabels[3] = new JLabel("Year 4");
+			yearStatLabels[4] = new JLabel("Year 5");
 		}
 		
 		//else, run through distribution methods to fill the arrays
@@ -129,6 +162,11 @@ public class statsPanel extends JPanel{
 			//Set Count and Average to correct values
 			starStatTextFields[0].setText(Integer.toString(getReviewCount()));
 			starStatTextFields[1].setText(Double.toString(computeAverage(reviews)));
+			starStatTextFields[2].setText(Integer.toString(starCounts[4]));
+			starStatTextFields[3].setText(Integer.toString(starCounts[3]));
+			starStatTextFields[4].setText(Integer.toString(starCounts[2]));
+			starStatTextFields[5].setText(Integer.toString(starCounts[1]));
+			starStatTextFields[6].setText(Integer.toString(starCounts[0]));
 			
 			//Set JLabel text values to actual seller and year values
 			for(int i=0; i<5; i++) {
@@ -141,32 +179,7 @@ public class statsPanel extends JPanel{
 		}
 		
 		
-		//Make table of labels and text fields to populate the count, average, and # of star reviews
-		starStatLabels[0] = new JLabel("Count");
-		starStatLabels[1]= new JLabel("Average");
-		starStatLabels[2] = new JLabel("5 Star");
-		starStatLabels[3] = new JLabel("4 Star");
-		starStatLabels[4] = new JLabel("3 Star");
-		starStatLabels[5] = new JLabel("2 Star");
-		starStatLabels[6] = new JLabel("1 Star");
-			
-		starStatTextFields[2].setText(Integer.toString(starCounts[4]));
-		starStatTextFields[3].setText(Integer.toString(starCounts[3]));
-		starStatTextFields[4].setText(Integer.toString(starCounts[2]));
-		starStatTextFields[5].setText(Integer.toString(starCounts[1]));
-		starStatTextFields[6].setText(Integer.toString(starCounts[0]));
-	
-		sellerStatLabels[0] = new JLabel("Seller 1");
-		sellerStatLabels[1] = new JLabel("Seller 2");
-		sellerStatLabels[2] = new JLabel("Seller 3");
-		sellerStatLabels[3] = new JLabel("Seller 4");
-		sellerStatLabels[4] = new JLabel("Seller 5");
-		
-		yearStatLabels[0] = new JLabel("Year 1");
-		yearStatLabels[1] = new JLabel("Year 2");
-		yearStatLabels[2] = new JLabel("Year 3");
-		yearStatLabels[3] = new JLabel("Year 4");
-		yearStatLabels[4] = new JLabel("Year 5");
+
 		
 		ptypeText.setText(pathPanel.productType);
 		
@@ -317,21 +330,40 @@ public class statsPanel extends JPanel{
 		// sort allYears
 		Arrays.sort(allYears);
 		
+		//Find the value of the most recent year
+		int allYearsMax = Integer.valueOf(allYears[allYears.length-1]);
+		
+		//Find the year 4 years before that
+		int lowerBound = allYearsMax - 4;
+		
+		//Iterate over allYears to find the index of the first lowerBound year
+		int startingPoint = 0;
+		for(int i = 0; i < allYears.length; i++ ) {
+			if(Integer.valueOf(allYears[i]) == lowerBound) {
+				startingPoint = i;
+				break;
+			}
+		}
 		
 		// create new array
 		String[][] table = new String[5][2];
 		int nthYear = 0;
 		int nthYearCount = 0;
 		
-		table[0][0] = allYears[0];
+		table[0][0] = allYears[startingPoint];
 
 		// iterate over allYears to count occurrences of each year into table
-		for(int i = 0; i < allYears.length; i++) {
+		for(int i = startingPoint; i < allYears.length; i++) {
 			
 			// if  current value of allYears equals current year, increment count
 			if(allYears[i].equalsIgnoreCase(table[nthYear][0])) {
 				nthYearCount++;
+				
+				if (i == allYears.length - 1) {
+					table[nthYear][1] = Integer.toString(nthYearCount);
+				}
 			}
+			
 			
 		
 			else {
@@ -349,7 +381,8 @@ public class statsPanel extends JPanel{
 					table[nthYear][0] = allYears[i];
 					nthYearCount++;
 				} catch(ArrayIndexOutOfBoundsException e) {
-					//System.out.println(i);
+					System.out.println(i);
+					e.printStackTrace();
 					break;
 				}
 			}

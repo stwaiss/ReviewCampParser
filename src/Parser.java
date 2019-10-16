@@ -162,10 +162,15 @@ public class Parser extends JFrame {
 				//Create a new keywordSet and add to master;
 				keywordSet k = new keywordSet(productType, keywordDataList);
 				masterKeywordSet.add(k);	
+				
+				
 			}
 			
+			for(keywordSet ks : masterKeywordSet) {
+				//System.out.print(ks.toString());
+			}
 			
-			System.out.println(masterKeywordSet.size() + " keyword sets were added\n");
+			//System.out.println(masterKeywordSet.size() + " keyword sets were added\n");
 		
 			scanner.close();
 		
