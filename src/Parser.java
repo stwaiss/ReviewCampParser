@@ -112,6 +112,7 @@ public class Parser extends JFrame {
 		screenCapPanel = new screenCapPanel();
 		add(screenCapPanel, BorderLayout.SOUTH);
 		
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		repaint();
 		validate();

@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.*;
@@ -368,15 +370,20 @@ public class choicePanel extends JPanel{
 			selection.getKeywordList().toArray(productTypeKeywordsArray);
 			
 			//Make a keywordList row and 2 column table to hold counts for each keyword
-			//Object[][] table = new Object[productTypeKeywordsArray.length][2];
+			String[][] table = new String[productTypeKeywordsArray.length][2];
 			
+			
+			for(int i = 0; i < productTypeKeywordsArray.length; i++) {
+				table[i][0] = productTypeKeywordsArray[i];
+				table[i][1] = "0";
+			}
 			
 			
 			//Check to see if there are keywords that are associated with the product type
 			if(productTypeKeywordsArray.length != 0) {
 				
 				//create a new int array to count hits from each keyword
-				int[] keywordCounts = new int[productTypeKeywordsArray.length];
+				//int[] keywordCounts = new int[productTypeKeywordsArray.length];
 				
 				//outer loop iterates through all reviews
 				for(int i = 0; i < allReviews.size(); i++) {
@@ -388,16 +395,32 @@ public class choicePanel extends JPanel{
 					for(int j = 0; j < productTypeKeywordsArray.length; j++) {				
 						
 						//see if the body of the current review contains 
-						if(thisReviewBody.contains(productTypeKeywordsArray[j])) {
-							keywordCounts[j]++;
+						if(thisReviewBody.contains((String) table[j][0])) {
+							int value = Integer.valueOf(table[j][1].toString());
+							table[j][1] = String.valueOf(++value);
 						}//end if
 					}//end inner loop
 				}// end outer loop
+				
+				
+				Arrays.sort(table, new Comparator<String[]>(){
+					@Override
+					public int compare(String[] a, String[] b) {
+						Double d1 = Double.valueOf(a[1]);
+						Double d2 = Double.valueOf(b[1]);
 						
+						return -d1.compareTo(d2);
+					}
+				});
+				
+				
+				//Create dataset and populate with values from table
 				final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 				
 				for(int i = 0; i < productTypeKeywordsArray.length; i++) {
-					dataset.addValue(keywordCounts[i], "Series 1", productTypeKeywordsArray[i]);
+					
+					//value, series, label
+					dataset.addValue(Integer.valueOf((String)table[i][1].toString()), "Series 1", (String) table[i][0]);
 				}
 
 				
@@ -407,12 +430,12 @@ public class choicePanel extends JPanel{
 			
 			//If no associated keywords, return an empty graph with a note in the console
 			else {
-				System.out.println("Cannot create graph because there are no keywords associated with this product type.");
+				System.out.println("Cannot create graph because there are no keywords associated with this product type.\n");
 			}
 			
 			return null;
-		}
-	}
+		}//end method
+	}// end class
 }
 
 
