@@ -34,7 +34,7 @@ public class statsPanel extends JPanel{
 			new JTextField(4), new JTextField(4), new JTextField(4)};
 	
 	
-	private static JTextField ptypeText = new JTextField("");
+	public static JTextField pSkuText = new JTextField("");
 	
 	private static List<Review> reviews = new ArrayList<Review>();
 
@@ -85,14 +85,14 @@ public class statsPanel extends JPanel{
 				add(new JLabel(""));
 				add(new JLabel(""));
 				
-				JLabel ptypeLabel = new JLabel("Type");
+				JLabel ptypeLabel = new JLabel("SKU");
 				ptypeLabel.setHorizontalAlignment(JLabel.CENTER);
 				add(ptypeLabel);
 				
-				ptypeText.setHorizontalAlignment(JTextField.CENTER);
-				ptypeText.setEditable(false);
-				ptypeText.setBackground(Color.white);
-				add(ptypeText);
+				pSkuText.setHorizontalAlignment(JTextField.CENTER);
+				pSkuText.setEditable(false);
+				pSkuText.setBackground(Color.white);
+				add(pSkuText);
 			}
 				
 		}		
@@ -177,11 +177,8 @@ public class statsPanel extends JPanel{
 				yearStatTextFields[i].setText(yearCounts[i][1]);
 			}
 		}
-		
-		
-
-		
-		ptypeText.setText(pathPanel.productType);
+				
+		pSkuText.setText(pathPanel.productSku);
 		
 	}
 	

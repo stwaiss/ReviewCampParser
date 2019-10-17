@@ -5,7 +5,8 @@ public class keywordSet {
 	public List<String> keywordList;
 	
 	public keywordSet() {
-		
+		productType = "";
+		keywordList = new ArrayList<String>();
 	}
 	
 	public keywordSet(String type) {
@@ -20,6 +21,10 @@ public class keywordSet {
 	
 	public String getProductType() {
 		return productType;
+	}
+	
+	public List<String> getKeywordList(){
+		return keywordList;
 	}
 	
 	public String toString() {

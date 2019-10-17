@@ -37,7 +37,7 @@ public class choicePanel extends JPanel{
 		options[2].addActionListener(new starRatingVsSellerListener());
 		
 		options[3] = new JRadioButton("Keyword Pareto");
-		//options[3].addActionListener(new graphPanel.keywordParetoListener());
+		options[3].addActionListener(new keywordParetoListener());
 		
 		
 		//add the radio buttons to the group and to the pane, and also add separators for space
@@ -319,6 +319,100 @@ public class choicePanel extends JPanel{
 		}
 	}
 
+	
+	//*******************************************************************************************************
+	public static class keywordParetoListener  implements ActionListener {		
+		public void actionPerformed(ActionEvent e) {
+
+			//Only do something if there are reviews in the system
+			if(Parser.getReviews().size() != 0) {
+				//System.out.println("Doing something");
+				JFreeChart barChart = ChartFactory.createBarChart(
+						"Total Star Ratings",
+						"Keyword",
+						"Count",
+						createDataset(),
+						PlotOrientation.VERTICAL,
+						true,
+						true,
+						false);
+				
+				ChartPanel myChart = new ChartPanel(barChart);
+				Parser.graphPanel.add(myChart, BorderLayout.CENTER);
+				Parser.graphPanel.validate();
+				
+			}
+			else {
+				return;
+			}
+
+
+		}
+		
+		private CategoryDataset createDataset() {		
+			List<Review> allReviews = Parser.getReviews();
+			
+			String productType = Parser.pathPanel.productType;
+			keywordSet selection = new keywordSet();
+			List<keywordSet> allKeywordSetsList = Parser.getKeywordSet();
+			
+			//iterate over all the keyword sets to find the one with the selected product type
+			for (int i = 0; i < allKeywordSetsList.size(); i++) {
+				if(allKeywordSetsList.get(i).getProductType().equalsIgnoreCase(productType)) {
+					selection = allKeywordSetsList.get(i);
+				}
+			}
+			
+			//save the keywords from the selected keywordSet to an array
+			String[] productTypeKeywordsArray = new String[selection.getKeywordList().size()];
+			selection.getKeywordList().toArray(productTypeKeywordsArray);
+			
+			//Make a keywordList row and 2 column table to hold counts for each keyword
+			//Object[][] table = new Object[productTypeKeywordsArray.length][2];
+			
+			
+			
+			//Check to see if there are keywords that are associated with the product type
+			if(productTypeKeywordsArray.length != 0) {
+				
+				//create a new int array to count hits from each keyword
+				int[] keywordCounts = new int[productTypeKeywordsArray.length];
+				
+				//outer loop iterates through all reviews
+				for(int i = 0; i < allReviews.size(); i++) {
+					
+					//save the body of the review under analysis to a local string
+					String thisReviewBody = allReviews.get(i).getBody();
+					
+					//inner loop iterates through all keywords
+					for(int j = 0; j < productTypeKeywordsArray.length; j++) {				
+						
+						//see if the body of the current review contains 
+						if(thisReviewBody.contains(productTypeKeywordsArray[j])) {
+							keywordCounts[j]++;
+						}//end if
+					}//end inner loop
+				}// end outer loop
+						
+				final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+				
+				for(int i = 0; i < productTypeKeywordsArray.length; i++) {
+					dataset.addValue(keywordCounts[i], "Series 1", productTypeKeywordsArray[i]);
+				}
+
+				
+				return dataset;
+			}//end if
+			
+			
+			//If no associated keywords, return an empty graph with a note in the console
+			else {
+				System.out.println("Cannot create graph because there are no keywords associated with this product type.");
+			}
+			
+			return null;
+		}
+	}
 }
 
 

@@ -23,7 +23,7 @@ public class pathPanel extends JPanel{
 	public JTextField pathField = new JTextField(50);
 	private List<Review> reviews = new ArrayList<Review>();
 	public static String productType = "";
-
+	public static String productSku = "";
 	static XSSFRow row;
 
 	//*******************************************************************************
@@ -122,6 +122,12 @@ public class pathPanel extends JPanel{
 						(String) options[0]);
 				} while(productType == "" && count < 2);
 				
+				count = 0;
+				
+				do {
+					count++;
+					productSku = (String) JOptionPane.showInputDialog(null, "Enter " + productType + " SKU\nAttempt" + (count));
+				} while (productSku == "" && count < 2);
 				
 			}
 
