@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -132,13 +133,13 @@ public class Parser extends JFrame {
 	}
 	
 	//This method pulls all the saved keywords from the txt file and makes objects out of them
-	public void readInKeywordSets() {
+	public static void readInKeywordSets() {
 		
 		try {
 			//Open the .txt file
 			File keywordSetsFile = new File("keywordSets.txt");
 			Scanner scanner = new Scanner(keywordSetsFile);
-			scanner.useDelimiter(";");
+			scanner.useDelimiter("\n");
 			
 			//while there are more lines delimited with a ;
 			while(scanner.hasNext()) {
@@ -150,19 +151,34 @@ public class Parser extends JFrame {
 				String productType = line.split("-")[0].trim();
 				
 				//Use everything else to save into a string array, split by commas
-				String keywordDataArray[] = line.split("-")[1].split(",");
+				String keywordDataArrayString = line.split("-")[1].trim();
 				
-				//Create a List to finish the keywordSet object
-				List<String> keywordDataList = new ArrayList<String>();
+				String keywordDataArray[];
 				
-				//iterate over the array and save the individual keywords into the list
-				for(String s : keywordDataArray) {
-					keywordDataList.add(s.trim());
+				if(keywordDataArrayString.isBlank()) {
+					keywordSet k = new keywordSet(productType);
+					masterKeywordSet.add(k);
 				}
 				
-				//Create a new keywordSet and add to master;
-				keywordSet k = new keywordSet(productType, keywordDataList);
-				masterKeywordSet.add(k);	
+				else {
+					keywordDataArray = keywordDataArrayString.split(",");
+					
+					//Create a List to finish the keywordSet object
+					List<String> keywordDataList = new ArrayList<String>();
+					
+					//iterate over the array and save the individual keywords into the list
+					for(String s : keywordDataArray) {
+						keywordDataList.add(s.trim());
+					}
+					
+					//Create a new keywordSet and add to master;
+					keywordSet k = new keywordSet(productType, keywordDataList);
+					masterKeywordSet.add(k);	
+				}
+					
+
+					
+
 				
 				
 			}
@@ -182,7 +198,7 @@ public class Parser extends JFrame {
 		}
 	}
 	
-	public void writeOutKeywordSets() {
+	public static void writeOutKeywordSets() {
 		try {
 			FileWriter fileWriter = new FileWriter("keywordSets.txt");
 			

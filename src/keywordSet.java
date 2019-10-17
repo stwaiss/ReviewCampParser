@@ -24,7 +24,13 @@ public class keywordSet {
 	
 	public String toString() {
 		String line = productType + " - ";
+
+		//If there's nothing in the list, just return "productType - "
+		if(keywordList.size() == 0) {
+			return line + " \n";
+		}
 		
+		//Else, iterate through the list and then return
 		for(int i = 0; i < keywordList.size(); i++) {
 			if(i < keywordList.size()-1) {
 				line += (keywordList.get(i) + ", ");

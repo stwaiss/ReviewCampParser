@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -36,13 +38,14 @@ public class parserMenuBar extends JMenuBar {
 		settingsMenu.add(viewAllSets);
 		viewAllSets.addActionListener(new viewAllSetsListener());
 		
-		//Create button to edit product types (grills, shavers, irons, etc...)
-		JMenuItem editProductTypes = new JMenuItem("Edit Product Types");
-		settingsMenu.add(editProductTypes);
+		//Create button to add product types (grills, shavers, irons, etc...)
+		JMenuItem addProductTypes = new JMenuItem("Add Product Types");
+		settingsMenu.add(addProductTypes);
+		addProductTypes.addActionListener(new addProductTypesListener());
 		
 		//Create button to edit keywords ({Grills,[don't work, stopped working]}
-		JMenuItem editKeywords = new JMenuItem("Edit Keywords");
-		settingsMenu.add(editKeywords);
+		JMenuItem addKeywords = new JMenuItem("Add Keywords");
+		settingsMenu.add(addKeywords);
 		
 		//Add the settings menu to the menu bar
 		add(settingsMenu);
@@ -82,6 +85,19 @@ public class parserMenuBar extends JMenuBar {
 		public void actionPerformed(ActionEvent e) {
 			keywordSetViewOnlyWindow window = new keywordSetViewOnlyWindow();
 			window.setVisible(true);
+		}
+	}
+	
+	public class addProductTypesListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			String newProductType = (String) JOptionPane.showInputDialog(null, "Enter new product type");
+			
+			if (newProductType != null && !newProductType.equalsIgnoreCase("")) {
+				List<keywordSet> master = Parser.getKeywordSet();
+				master.add(new keywordSet(newProductType));
+				Parser.writeOutKeywordSets();
+				JOptionPane.showInternalMessageDialog(null, newProductType + " has been added!");
+			}			
 		}
 	}
 
