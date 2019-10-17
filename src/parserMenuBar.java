@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -49,6 +50,14 @@ public class parserMenuBar extends JMenuBar {
 		
 		//Add the settings menu to the menu bar
 		add(settingsMenu);
+		
+		JMenu helpMenu = new JMenu("Help");
+		
+		JMenuItem aboutMenu = new JMenuItem("About");
+		helpMenu.add(aboutMenu);
+		aboutMenu.addActionListener(new aboutMenuListener());
+		
+		add(helpMenu);
 		
 	}
 	
@@ -101,4 +110,13 @@ public class parserMenuBar extends JMenuBar {
 		}
 	}
 
+	
+	public class aboutMenuListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			int year = Calendar.getInstance().get(Calendar.YEAR);
+			JOptionPane.showInternalMessageDialog(null, 
+					"Review Camp Analyser\nVersion Number: " + application.VERSION_NUMBER + 
+					"\nCreated by: Sean Waiss - QE Extraordinaire\nCopyright: Spectrum Brands, " + year);
+		}
+	}
 }

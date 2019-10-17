@@ -1,9 +1,9 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
@@ -32,6 +32,12 @@ public class Parser extends JFrame {
 		setSize(1000,750);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	
+		try {
+			setIconImage(ImageIO.read(new File("SPB icon.png")));
+		} catch (IOException e) {
+			
+		}
 		
 		//Add menu bar to the top of the frame
 		menuBar = new parserMenuBar();
@@ -112,7 +118,7 @@ public class Parser extends JFrame {
 		screenCapPanel = new screenCapPanel();
 		add(screenCapPanel, BorderLayout.SOUTH);
 		
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		repaint();
 		validate();

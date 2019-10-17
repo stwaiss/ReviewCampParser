@@ -1,6 +1,8 @@
-Grill - does not work, broken, overcooks, undercooks
+Grill - does not work, broken, overcooks, undercooks, overcook, undercook, burns, fire, raw
 Groomer - does not work, broken, bad cut, loud
 Coffee Maker - stopped working, broke, too cold, too hot, drips, leaks, burns, spills, scald, scalds, shatter, cut
 Toaster Oven -  
 Juicer -  
 Blender -  
+Can Opener -  
+Kettle - noisy, cold, too hot, spills, leaks, leak, calcify, dirty, clean

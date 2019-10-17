@@ -20,7 +20,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class choicePanel extends JPanel{
 	
-	private static JRadioButton[] options = new JRadioButton[4];
+	private static JRadioButton[] options = new JRadioButton[6];
 	ButtonGroup group = new ButtonGroup();
 	public choicePanel() {
 		
@@ -41,12 +41,17 @@ public class choicePanel extends JPanel{
 		options[3] = new JRadioButton("Keyword Pareto");
 		options[3].addActionListener(new keywordParetoListener());
 		
+		options[4] = new JRadioButton("Keywords vs. Star Ratings");
+		options[4].addActionListener(new keywordVsStarListener());
+		
+		options[5] = new JRadioButton("Custom Keyword Search");
+		options[5].addActionListener(new customKeywordSearchListener());
 		
 		//add the radio buttons to the group and to the pane, and also add separators for space
 		for (JRadioButton b: options) {
 			group.add(b);
 			add(b);
-			this.add(Box.createRigidArea(new Dimension(0,25)));
+			this.add(Box.createRigidArea(new Dimension(0,15)));
 		}	
 	}
 	
@@ -321,7 +326,6 @@ public class choicePanel extends JPanel{
 		}
 	}
 
-	
 	//*******************************************************************************************************
 	public static class keywordParetoListener  implements ActionListener {		
 		public void actionPerformed(ActionEvent e) {
@@ -436,6 +440,94 @@ public class choicePanel extends JPanel{
 			return null;
 		}//end method
 	}// end class
+
+	//*******************************************************************************************************
+	public static class keywordVsStarListener  implements ActionListener {		
+		public void actionPerformed(ActionEvent e) {
+
+			//Only do something if there are reviews in the system
+			if(Parser.getReviews().size() != 0) {
+				//System.out.println("Doing something");
+				JFreeChart barChart = ChartFactory.createBarChart(
+						"Total Star Ratings",
+						"Star Rating",
+						"Count",
+						createDataset(),
+						PlotOrientation.VERTICAL,
+						true,
+						true,
+						false);
+				
+				ChartPanel myChart = new ChartPanel(barChart);
+				Parser.graphPanel.add(myChart, BorderLayout.CENTER);
+				Parser.graphPanel.validate();
+				
+			}
+			else {
+				return;
+			}
+
+
+		}
+		
+		private CategoryDataset createDataset() {
+			//create labels for each bar in the bar graph
+			final String[] starLabels = {"1 Star", "2 Star","3 Star", "4 Star", "5 Star"};
+			final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+			
+			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[6].getText()), "Series 1", starLabels[0]);
+			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[5].getText()), "Series 1", starLabels[1]);
+			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[4].getText()), "Series 1", starLabels[2]);
+			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[3].getText()), "Series 1", starLabels[3]);
+			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[2].getText()), "Series 1", starLabels[4]);
+			
+			return dataset;
+		}
+	}
+
+	//*******************************************************************************************************
+	public static class customKeywordSearchListener  implements ActionListener {		
+		public void actionPerformed(ActionEvent e) {
+
+			//Only do something if there are reviews in the system
+			if(Parser.getReviews().size() != 0) {
+				//System.out.println("Doing something");
+				JFreeChart barChart = ChartFactory.createBarChart(
+						"Total Star Ratings",
+						"Star Rating",
+						"Count",
+						createDataset(),
+						PlotOrientation.VERTICAL,
+						true,
+						true,
+						false);
+				
+				ChartPanel myChart = new ChartPanel(barChart);
+				Parser.graphPanel.add(myChart, BorderLayout.CENTER);
+				Parser.graphPanel.validate();
+				
+			}
+			else {
+				return;
+			}
+
+
+		}
+		
+		private CategoryDataset createDataset() {
+			//create labels for each bar in the bar graph
+			final String[] starLabels = {"1 Star", "2 Star","3 Star", "4 Star", "5 Star"};
+			final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+			
+			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[6].getText()), "Series 1", starLabels[0]);
+			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[5].getText()), "Series 1", starLabels[1]);
+			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[4].getText()), "Series 1", starLabels[2]);
+			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[3].getText()), "Series 1", starLabels[3]);
+			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[2].getText()), "Series 1", starLabels[4]);
+				
+				return dataset;
+			}
+		}
 }
 
 

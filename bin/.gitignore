@@ -1,13 +1,2 @@
-/choicePanel$starRatingVsYearListener.class
-/graphPanel$starRatingVsSellerListener.class
-/graphPanel$starRatingVsYearListener.class
-/choicePanel$starRatingVsSellerListener.class
-/starRatingVsYearListener$starRatingVsSellerListener.class
-/starRatingVsYearListener.class
-/pathPanel$pathClearBtnListener.class
-/keywordSetViewOnlyWindow.class
-/parserMenuBar$viewAllSetsListener.class
-/keywordSetViewOnlyWindow$comboBoxActionListener.class
-/parserMenuBar$addProductTypesListener.class
-/choicePanel$keywordParetoListener.class
-/choicePanel$keywordParetoListener$1.class
+/choicePanel$keywordVsStarListener.class
+/choicePanel$customKeywordSearchListener.class
