@@ -32,7 +32,8 @@ public class Parser extends JFrame {
 		setSize(1000,750);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-	
+		
+		//Try and open up the icon file to be assigned to the window.
 		try {
 			setIconImage(ImageIO.read(new File("SPB icon.png")));
 		} catch (IOException e) {
@@ -122,7 +123,7 @@ public class Parser extends JFrame {
 		
 		repaint();
 		validate();
-		 
+		
 	}
 	
 	//********************************************************************************
