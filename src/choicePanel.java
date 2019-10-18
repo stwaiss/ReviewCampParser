@@ -331,6 +331,7 @@ public class choicePanel extends JPanel{
 
 			//Only do something if there are reviews in the system
 			if(Parser.getReviews().size() != 0) {
+			
 				//System.out.println("Doing something");
 				JFreeChart barChart = ChartFactory.createBarChart(
 						"Total Star Ratings",
@@ -459,6 +460,7 @@ public class choicePanel extends JPanel{
 				popUpWindow.setLayout(new BorderLayout());
 				
 				input = new JTextField(8);
+				input.setText("");
 				JButton addButton = new JButton("Add");
 				addButton.addActionListener(new addButtonListener());
 				
@@ -518,7 +520,6 @@ public class choicePanel extends JPanel{
 					
 					textArea.append(newKeyword + "\n");
 					input.setText("");
-					newKeyword = "";
 				}
 			}
 		}
@@ -551,7 +552,11 @@ public class choicePanel extends JPanel{
 		
 				
 		private CategoryDataset createDataset() {
-						
+			
+			
+			// [0] is keyword
+			// [1] - [5] is star counts
+			// [6] is sum of star counts
 			String[][] table = {
 					{"", "0", "0" ,"0", "0" ,"0", "0"},
 					{"", "0", "0" ,"0", "0" ,"0", "0"},
