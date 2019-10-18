@@ -119,7 +119,7 @@ public class pathPanel extends JPanel{
 					count++;
 					productType = (String) JOptionPane.showInputDialog( 
 						null,
-						"Please select product type\nAttempt " + (count), 
+						"Please select product type",
 						"Product Type Selection",
 						JOptionPane.DEFAULT_OPTION, 
 						null, 
@@ -131,7 +131,7 @@ public class pathPanel extends JPanel{
 				
 				do {
 					count++;
-					productSku = (String) JOptionPane.showInputDialog(null, "Enter " + productType + " SKU\nAttempt" + (count));
+					productSku = (String) JOptionPane.showInputDialog(null, "Enter " + productType + " SKU");
 				} while (productSku == "" && count < 2);
 				
 			}

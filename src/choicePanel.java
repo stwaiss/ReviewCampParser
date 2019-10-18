@@ -447,6 +447,7 @@ public class choicePanel extends JPanel{
 		public static JTextField input;
 		public static JTextArea textArea;
 		public static int count = 0;
+		static String newKeyword = "";
 		
 		public void actionPerformed(ActionEvent e) {
 
@@ -458,6 +459,7 @@ public class choicePanel extends JPanel{
 				popUpWindow.setLayout(new BorderLayout());
 				
 				input = new JTextField(8);
+				input.setEditable(true);
 				JButton addButton = new JButton("Add");
 				addButton.addActionListener(new addButtonListener());
 				
@@ -508,7 +510,7 @@ public class choicePanel extends JPanel{
 		
 		public static class addButtonListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
-				String newKeyword = "";
+				
 				newKeyword = input.getText().trim().toLowerCase();
 				
 				if(!newKeyword.isEmpty() && count < 5) {
@@ -517,13 +519,14 @@ public class choicePanel extends JPanel{
 					
 					textArea.append(newKeyword + "\n");
 					input.setText("");
+					newKeyword = "";
 				}
 			}
 		}
 		
 		public static class runButtonListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
-				popUpWindow.setVisible(false);
+				
 				JFreeChart barChart = ChartFactory.createBarChart(
 						"Star Ratings of Custom Keywords",
 						"Keyword",
@@ -537,6 +540,14 @@ public class choicePanel extends JPanel{
 				ChartPanel myChart = new ChartPanel(barChart);
 				Parser.graphPanel.add(myChart, BorderLayout.CENTER);
 				Parser.graphPanel.validate();
+				
+				for(int i = 0; i<5 ; i++) {
+					customKeywords[i] = "";
+				}
+				popUpWindow.setVisible(false);
+				textArea.setText("");
+				input.setText("");
+				newKeyword = "";
 			}	
 		
 				
