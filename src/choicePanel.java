@@ -459,7 +459,6 @@ public class choicePanel extends JPanel{
 				popUpWindow.setLayout(new BorderLayout());
 				
 				input = new JTextField(8);
-				input.setEditable(true);
 				JButton addButton = new JButton("Add");
 				addButton.addActionListener(new addButtonListener());
 				
