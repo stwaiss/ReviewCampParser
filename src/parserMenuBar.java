@@ -33,21 +33,17 @@ public class parserMenuBar extends JMenuBar {
 		
 		//Create a new Menu for managing settings
 		JMenu settingsMenu = new JMenu("Settings");
-		
-		//
-		JMenuItem viewAllSets = new JMenuItem("View All Keyword Sets");
-		settingsMenu.add(viewAllSets);
-		viewAllSets.addActionListener(new viewAllSetsListener());
-		
+				
 		//Create button to add product types (grills, shavers, irons, etc...)
 		JMenuItem addProductTypes = new JMenuItem("Add Product Types");
 		settingsMenu.add(addProductTypes);
 		addProductTypes.addActionListener(new addProductTypesListener());
 		
-		//Create button to edit keywords ({Grills,[don't work, stopped working]}
-		JMenuItem addKeywords = new JMenuItem("Add Keywords");
-		settingsMenu.add(addKeywords);
-		
+		//Create menu to edit the existing sets in the system
+		JMenuItem editAllSets = new JMenuItem("Edit Keyword Sets");
+		settingsMenu.add(editAllSets);
+		editAllSets.addActionListener(new editAllSetsListener());
+				
 		//Add the settings menu to the menu bar
 		add(settingsMenu);
 		
@@ -90,9 +86,9 @@ public class parserMenuBar extends JMenuBar {
 		}
 	}
 	
-	public class viewAllSetsListener implements ActionListener{
+	public class editAllSetsListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			keywordSetViewOnlyWindow window = new keywordSetViewOnlyWindow();
+			keywordSetEditWindow window = new keywordSetEditWindow();
 			window.setVisible(true);
 		}
 	}

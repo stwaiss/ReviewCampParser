@@ -1,4 +1,6 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,16 +10,18 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-public class keywordSetViewOnlyWindow extends JFrame{
+public class keywordSetEditWindow extends JFrame{
 	
 	static JComboBox comboBox;
-	static JTextArea textArea = new JTextArea(15,30);
+	static JTextField input;
+	static JButton addButton;
+	static JTextArea textArea = new JTextArea(20,10);
 	
 	
-	public keywordSetViewOnlyWindow() {
+	public keywordSetEditWindow() {
 		//Boilerplate JFrame methods
 		setTitle("Review Camp Parser - Keyword Viewer");
-		setSize(500,500);
+		setSize(400,500);
 		setLayout(new BorderLayout());
 		
 		//save all the keyword sets locally
@@ -40,10 +44,30 @@ public class keywordSetViewOnlyWindow extends JFrame{
 		comboBox = new JComboBox(allProductTypesArray);
 		comboBox.addActionListener(new comboBoxActionListener());
 		
-		//add the drop down list to the frame
+		//initialize extra components
+		input = new JTextField(8);
+		addButton = new JButton("Add");
+		addButton.addActionListener(new addButtonListener());
+		
+		//create a wrapper to hold the controlling components
 		JPanel north = new JPanel();
-		north.add(new JLabel("Select Product Type"));
-		north.add(comboBox);
+		north.setLayout(new GridLayout(2,1,5,5));
+		
+		//create panel to hold a label and the dropdown
+		JPanel northUpper = new JPanel();
+		northUpper.add(new JLabel("Select product type"));
+		northUpper.add(comboBox);
+		
+		north.add(northUpper);
+		
+		//create a panel to hold a label, the input bar, and the button
+		JPanel northLower = new JPanel();
+		northLower.add(new JLabel("Enter keyword to be added"));
+		northLower.add(input);
+		northLower.add(addButton);
+		
+		north.add(northLower);
+		
 		add(north, BorderLayout.NORTH);
 		
 		//Create a scrollable wrapper for the list of keywords
@@ -88,13 +112,49 @@ public class keywordSetViewOnlyWindow extends JFrame{
 				}
 			}
 			
-			keywordSetViewOnlyWindow.textArea.setText("");
+			keywordSetEditWindow.textArea.setText("");
 		
 			//pull the list of keywords from that product type and print to the text area
 			for(int i = 0; i < selection.keywordList.size(); i++) {
-				keywordSetViewOnlyWindow.textArea.append(selection.keywordList.get(i) + "\n");
+				keywordSetEditWindow.textArea.append(selection.keywordList.get(i) + "\n");
 			}
 							
 		}
 	}
+
+	public class addButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			String selectedProductType = "";
+			selectedProductType = comboBox.getSelectedItem().toString();
+			
+			String newKeyword = "";
+			newKeyword = input.getText().trim();
+			
+			if(!selectedProductType.isEmpty() && !newKeyword.isEmpty()) {
+				//pull the list of all keyword sets and save locally
+				List<keywordSet> allKeywordSetsList = Parser.getKeywordSet();
+				
+				keywordSet selection = new keywordSet();
+				
+				//iterate over all the keyword sets to find the one with the selected product type
+				for (int i = 0; i < allKeywordSetsList.size(); i++) {
+					if(allKeywordSetsList.get(i).getProductType().equalsIgnoreCase(selectedProductType)) {
+						selection = allKeywordSetsList.get(i);
+					}
+				}
+				
+				selection.keywordList.add(newKeyword);
+				
+				keywordSetEditWindow.textArea.setText("");
+				
+				//pull the list of keywords from that product type and print to the text area
+				for(int i = 0; i < selection.keywordList.size(); i++) {
+					keywordSetEditWindow.textArea.append(selection.keywordList.get(i) + "\n");
+				}
+				
+				Parser.writeOutKeywordSets();
+			}			
+		}
+	}
+
 }

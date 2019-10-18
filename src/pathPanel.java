@@ -107,7 +107,12 @@ public class pathPanel extends JPanel{
 				}
 				
 				Arrays.sort(options);
-				 
+				
+				Parser.graphPanel.setProductType(productType);
+				Parser.setReviews(reviews); 
+				System.out.println(reviews.size() + " reviews have been added \n"); 
+				
+				
 				//Try to prevent from escaping without picking an option. 
 				int count = 0;
 				do { 
@@ -144,9 +149,7 @@ public class pathPanel extends JPanel{
 			 */
 			
 			 //Write to console and begin populating statistics boxes
-			Parser.graphPanel.setProductType(productType);
-			Parser.setReviews(reviews); 
-			System.out.println(reviews.size() + " reviews have been added \n"); 
+
 			statsPanel.fillStatPanelStats();
 
 		}

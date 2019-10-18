@@ -1,8 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -20,7 +22,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class choicePanel extends JPanel{
 	
-	private static JRadioButton[] options = new JRadioButton[6];
+	private static JRadioButton[] options = new JRadioButton[5];
 	ButtonGroup group = new ButtonGroup();
 	public choicePanel() {
 		
@@ -41,11 +43,8 @@ public class choicePanel extends JPanel{
 		options[3] = new JRadioButton("Keyword Pareto");
 		options[3].addActionListener(new keywordParetoListener());
 		
-		options[4] = new JRadioButton("Keywords vs. Star Ratings");
-		options[4].addActionListener(new keywordVsStarListener());
-		
-		options[5] = new JRadioButton("Custom Keyword Search");
-		options[5].addActionListener(new customKeywordSearchListener());
+		options[4] = new JRadioButton("Custom Keyword Search");
+		options[4].addActionListener(new customKeywordSearchListener());
 		
 		//add the radio buttons to the group and to the pane, and also add separators for space
 		for (JRadioButton b: options) {
@@ -442,15 +441,92 @@ public class choicePanel extends JPanel{
 	}// end class
 
 	//*******************************************************************************************************
-	public static class keywordVsStarListener  implements ActionListener {		
+	public static class customKeywordSearchListener  implements ActionListener {		
+		static JFrame popUpWindow = new JFrame();
+		public static String[] customKeywords = {"", "", "", "", ""};
+		public static JTextField input;
+		public static JTextArea textArea;
+		public static int count = 0;
+		
 		public void actionPerformed(ActionEvent e) {
 
 			//Only do something if there are reviews in the system
 			if(Parser.getReviews().size() != 0) {
-				//System.out.println("Doing something");
+				//Boilerplate JFrame methods
+				popUpWindow.setTitle("Review Camp Parser - Custom Keyword Search");
+				popUpWindow.setSize(400,300);
+				popUpWindow.setLayout(new BorderLayout());
+				
+				input = new JTextField(8);
+				JButton addButton = new JButton("Add");
+				addButton.addActionListener(new addButtonListener());
+				
+				//create a wrapper to hold the controlling components
+				JPanel north = new JPanel();
+	
+				north.add(new JLabel("Enter up to 5 keywords"));
+				north.add(input);
+				north.add(addButton);
+				
+				popUpWindow.add(north, BorderLayout.NORTH);
+								
+				textArea = new JTextArea(10,10);
+				
+				//Create a scrollable wrapper for the list of keywords
+				textArea.setWrapStyleWord(true);
+				textArea.setLineWrap(true);
+				textArea.setEditable(false);
+				textArea.setFocusable(false);
+				JScrollPane scrollPane = new JScrollPane(textArea,
+						ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+						ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				
+				//add the scrollable wrapper to the panel, and then add to the frame
+				JPanel keywordPanel = new JPanel();
+				keywordPanel.setBorder(new EmptyBorder((new Insets(20,20,20,20))));
+				keywordPanel.add(scrollPane);
+				
+				popUpWindow.add(keywordPanel, BorderLayout.CENTER);
+				
+				JButton runButton = new JButton("Run");
+				runButton.addActionListener(new runButtonListener());
+				
+				JPanel south = new JPanel();
+				south.add(runButton);
+				popUpWindow.add(south, BorderLayout.SOUTH);
+				
+				popUpWindow.setVisible(true);
+				
+			}
+			else {
+				return;
+			}
+		}
+	
+		
+		
+		
+		public static class addButtonListener implements ActionListener{
+			public void actionPerformed(ActionEvent e) {
+				String newKeyword = "";
+				newKeyword = input.getText().trim().toLowerCase();
+				
+				if(!newKeyword.isEmpty() && count < 5) {
+					customKeywords[count] = newKeyword;
+					count++;
+					
+					textArea.append(newKeyword + "\n");
+					input.setText("");
+				}
+			}
+		}
+		
+		public static class runButtonListener implements ActionListener{
+			public void actionPerformed(ActionEvent e) {
+				popUpWindow.setVisible(false);
 				JFreeChart barChart = ChartFactory.createBarChart(
-						"Total Star Ratings",
-						"Star Rating",
+						"Star Ratings of Custom Keywords",
+						"Keyword",
 						"Count",
 						createDataset(),
 						PlotOrientation.VERTICAL,
@@ -461,73 +537,99 @@ public class choicePanel extends JPanel{
 				ChartPanel myChart = new ChartPanel(barChart);
 				Parser.graphPanel.add(myChart, BorderLayout.CENTER);
 				Parser.graphPanel.validate();
-				
-			}
-			else {
-				return;
-			}
-
-
-		}
+			}	
 		
+				
 		private CategoryDataset createDataset() {
+						
+			String[][] table = {
+					{"", "0", "0" ,"0", "0" ,"0", "0"},
+					{"", "0", "0" ,"0", "0" ,"0", "0"},
+					{"", "0", "0" ,"0", "0" ,"0", "0"},
+					{"", "0", "0" ,"0", "0" ,"0", "0"},
+					{"", "0", "0" ,"0", "0" ,"0", "0"}
+			};
+			
 			//create labels for each bar in the bar graph
 			final String[] starLabels = {"1 Star", "2 Star","3 Star", "4 Star", "5 Star"};
 			final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 			
-			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[6].getText()), "Series 1", starLabels[0]);
-			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[5].getText()), "Series 1", starLabels[1]);
-			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[4].getText()), "Series 1", starLabels[2]);
-			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[3].getText()), "Series 1", starLabels[3]);
-			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[2].getText()), "Series 1", starLabels[4]);
 			
+			List<Review> allReviewsList = Parser.getReviews();
+
+			
+			//copy the custom keywords into the first column of the table
+			for(int i = 0; i < 5; i++) {
+				table[i][0] = customKeywords[i];
+			}
+			
+			//Iterate over all reviews
+			for(int i = 0; i < allReviewsList.size(); i++) {
+				//Iterate over all keywords
+				for(int j = 0; j < 5; j++) {
+					if(allReviewsList.get(i).getBody().contains(table[j][0])) {
+						//switch case depending on value, and then add to that count 
+						double thisStarDouble = Double.valueOf(allReviewsList.get(i).getStar());
+						int thisStarInt = (int) thisStarDouble; 
+						
+						
+						int star = 0;
+						switch(thisStarInt) {
+						case 1:
+							star = Integer.valueOf(table[j][1]);
+							table[j][1] = String.valueOf(++star);
+							break;
+						case 2:
+							star = Integer.valueOf(table[j][2]);
+							table[j][2] = String.valueOf(++star);
+							break;
+						case 3:
+							star = Integer.valueOf(table[j][3]);
+							table[j][3] = String.valueOf(++star);
+							break;
+						case 4:
+							star = Integer.valueOf(table[j][4]);
+							table[j][4] = String.valueOf(++star);
+							break;	
+						case 5:
+							star = Integer.valueOf(table[j][5]);
+							table[j][5] = String.valueOf(++star);
+							break;	
+						default:
+							break;	
+						}//End switch
+					}//End if
+				}//End inner loop
+			}//End outer loop
+			
+		
+			//save data to graph
+			for(int i = 0; i < 5; i++) {
+				
+				if(!table[i][0].isEmpty()) {
+					//Calculate total sum of each keyword
+					int sum = 0;
+					
+					for(int j = 1; j < 6; j++) {
+						sum += Integer.valueOf(table[i][j]);
+					}
+					
+					//value, series, label
+					dataset.addValue(Integer.valueOf(table[i][1]), starLabels[0], table[i][0]);
+					dataset.addValue(Integer.valueOf(table[i][2]), starLabels[1], table[i][0]);
+					dataset.addValue(Integer.valueOf(table[i][3]), starLabels[2], table[i][0]);
+					dataset.addValue(Integer.valueOf(table[i][4]), starLabels[3], table[i][0]);
+					dataset.addValue(Integer.valueOf(table[i][5]), starLabels[4], table[i][0]);
+					dataset.addValue(sum, "Total", table[i][0]);
+				}
+
+			}
+			
+				
 			return dataset;
+			}
 		}
 	}
-
-	//*******************************************************************************************************
-	public static class customKeywordSearchListener  implements ActionListener {		
-		public void actionPerformed(ActionEvent e) {
-
-			//Only do something if there are reviews in the system
-			if(Parser.getReviews().size() != 0) {
-				//System.out.println("Doing something");
-				JFreeChart barChart = ChartFactory.createBarChart(
-						"Total Star Ratings",
-						"Star Rating",
-						"Count",
-						createDataset(),
-						PlotOrientation.VERTICAL,
-						true,
-						true,
-						false);
-				
-				ChartPanel myChart = new ChartPanel(barChart);
-				Parser.graphPanel.add(myChart, BorderLayout.CENTER);
-				Parser.graphPanel.validate();
-				
-			}
-			else {
-				return;
-			}
-
-
-		}
-		
-		private CategoryDataset createDataset() {
-			//create labels for each bar in the bar graph
-			final String[] starLabels = {"1 Star", "2 Star","3 Star", "4 Star", "5 Star"};
-			final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-			
-			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[6].getText()), "Series 1", starLabels[0]);
-			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[5].getText()), "Series 1", starLabels[1]);
-			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[4].getText()), "Series 1", starLabels[2]);
-			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[3].getText()), "Series 1", starLabels[3]);
-			dataset.addValue(Integer.parseInt(statsPanel.starStatTextFields[2].getText()), "Series 1", starLabels[4]);
-				
-				return dataset;
-			}
-		}
 }
 
 
