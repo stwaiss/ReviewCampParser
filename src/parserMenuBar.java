@@ -112,7 +112,7 @@ public class parserMenuBar extends JMenuBar {
 			int year = Calendar.getInstance().get(Calendar.YEAR);
 			JOptionPane.showInternalMessageDialog(null, 
 					"Review Camp Analyser\nVersion Number: " + application.VERSION_NUMBER + 
-					"\nCreated by: Sean Waiss - QE Extraordinaire\nCopyright: Spectrum Brands, " + year);
+					"\nCreated by: Sean Waiss\nCopyright: Spectrum Brands, " + year);
 		}
 	}
 }

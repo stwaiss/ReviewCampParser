@@ -2,8 +2,11 @@ import java.awt.BorderLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -46,6 +49,12 @@ public class customKeywordSearcher {
 			popUpWindow.setTitle("Review Camp Parser - Custom Keyword Search");
 			popUpWindow.setSize(400,300);
 			popUpWindow.setLayout(new BorderLayout());
+			//Try and open up the icon file to be assigned to the window.
+			try {
+				popUpWindow.setIconImage(ImageIO.read(new File("SPB icon.png")));
+			} catch (IOException e) {
+				
+			}
 			
 			input = new JTextField(8);
 			input.setText("");

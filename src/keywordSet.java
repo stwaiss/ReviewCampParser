@@ -12,6 +12,9 @@ public class keywordSet {
 	public keywordSet(String type) {
 		productType = type;
 		keywordList = new ArrayList<String>();
+		keywordList.add("does not work");
+		keywordList.add("broke");
+		keywordList.add("stopped");
 	}
 	
 	public keywordSet(String type, List<String> keywords) {

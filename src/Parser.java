@@ -183,12 +183,6 @@ public class Parser extends JFrame {
 					keywordSet k = new keywordSet(productType, keywordDataList);
 					masterKeywordSet.add(k);	
 				}
-					
-
-					
-
-				
-				
 			}
 			
 			for(keywordSet ks : masterKeywordSet) {
@@ -199,10 +193,14 @@ public class Parser extends JFrame {
 		
 			scanner.close();
 		
+			
+			//If there's not text file in the directory, create a new one and add one product type;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println("KeywordSets file failed to load");
-			e.printStackTrace();
+			File file = new File("keywordSets.txt");
+
+			keywordSet k = new keywordSet("Toaster");
+			masterKeywordSet.add(k);
 		}
 	}
 	
@@ -222,7 +220,7 @@ public class Parser extends JFrame {
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Error writing text file");
 		}
 		
 	}

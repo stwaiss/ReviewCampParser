@@ -4,9 +4,12 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -23,6 +26,12 @@ public class keywordSetEditWindow extends JFrame{
 		setTitle("Review Camp Parser - Keyword Viewer");
 		setSize(400,500);
 		setLayout(new BorderLayout());
+		//Try and open up the icon file to be assigned to the window.
+		try {
+			setIconImage(ImageIO.read(new File("SPB icon.png")));
+		} catch (IOException e) {
+			
+		}
 		
 		//save all the keyword sets locally
 		List<keywordSet> allKeywordSetsList = Parser.getKeywordSet();
