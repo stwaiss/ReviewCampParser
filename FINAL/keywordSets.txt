@@ -1,6 +1,6 @@
 Grill - does not work, broke, stopped, overcook, undercook, burn, raw, smoke, hard to clean
 Personal Groomer - does not work, broke, bad cut, loud, noisy, not sharp, dull, clog
-Coffee Maker - does not work, broke, stopped, cold, too hot, drip, leak, burn, spill, scald, shatter, cut
+Coffee Maker - does not work, broke, stopped, cold, too hot, drip, leak, burn, spill, scald
 Toaster Oven - does not work, broke, stopped, burn, smoke, fire
 Juicer - does not work, broke, stopped
 Blender - does not work, broke, stopped, noisy, loud, broke
@@ -16,3 +16,4 @@ Slow Cooker - does not work, broke, stopped
 Air Fryer - does not work, broke, stopped
 Foil Shaver - does not work, broke, stopped
 Rotary Shaver - does not work, broke, stopped
+Hair Setter - does not work, broke, stopped

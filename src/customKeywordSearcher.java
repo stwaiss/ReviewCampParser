@@ -58,6 +58,7 @@ public class customKeywordSearcher {
 			
 			input = new JTextField(8);
 			input.setText("");
+			input.setFocusable(true);
 			JButton addButton = new JButton("Add");
 			addButton.addActionListener(new addButtonListener());
 			
@@ -228,6 +229,7 @@ public class customKeywordSearcher {
 				
 				textArea.append(newKeyword + "\n");
 				input.setText("");
+				input.setFocusable(true);
 			}
 		}
 	}
@@ -236,7 +238,7 @@ public class customKeywordSearcher {
 		public void actionPerformed(ActionEvent e) {
 			
 			JFreeChart barChart = ChartFactory.createBarChart(
-					"Star Ratings of Custom Keywords",
+					statsPanel.pSkuText.getText() + " - Star Ratings of Custom Keywords",
 					"Keyword",
 					"Count",
 					createDataset(),

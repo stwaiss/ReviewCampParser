@@ -62,7 +62,7 @@ public class choicePanel extends JPanel{
 			if(Parser.getReviews().size() != 0) {
 				//System.out.println("Doing something");
 				JFreeChart barChart = ChartFactory.createBarChart(
-						"Total Star Ratings",
+						statsPanel.pSkuText.getText() + " - Total Star Ratings",
 						"Star Rating",
 						"Count",
 						createDataset(),
@@ -107,7 +107,7 @@ public class choicePanel extends JPanel{
 			if(Parser.getReviews().size() != 0) {
 				//System.out.println("Doing something");
 				JFreeChart barChart = ChartFactory.createBarChart(
-						"Star Ratings Per Year",
+						statsPanel.pSkuText.getText() + " - Star Ratings Per Year",
 						"Star Rating",
 						"Count",
 						createDataset(),
@@ -209,7 +209,7 @@ public class choicePanel extends JPanel{
 			if(Parser.getReviews().size() != 0) {
 				//System.out.println("Doing something");
 				JFreeChart barChart = ChartFactory.createBarChart(
-						"Star Ratings vs Seller",
+						statsPanel.pSkuText.getText() + " - Star Ratings vs Seller",
 						"Star Rating",
 						"Count",
 						createDataset(),
@@ -334,7 +334,7 @@ public class choicePanel extends JPanel{
 			
 				//System.out.println("Doing something");
 				JFreeChart barChart = ChartFactory.createBarChart(
-						"Total Star Ratings",
+						statsPanel.pSkuText.getText() + " - Product Type Keyword Hits",
 						"Keyword",
 						"Count",
 						createDataset(),
