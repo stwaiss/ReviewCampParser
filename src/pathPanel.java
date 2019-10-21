@@ -48,6 +48,9 @@ public class pathPanel extends JPanel{
 	public class fileFindBtnListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			
+			//Clear reviews in the system to prevent duplicates
+			reviews.clear();
+			
 			JFileChooser fc = new JFileChooser();
 			int returnVal = fc.showOpenDialog(new JFrame());
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
