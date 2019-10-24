@@ -109,7 +109,7 @@ public class choicePanel extends JPanel{
 				JFreeChart barChart = ChartFactory.createBarChart(
 						statsPanel.pSkuText.getText() + " - Star Ratings Per Year",
 						"Star Rating",
-						"Count",
+						"Percentage (%)",
 						createDataset(),
 						PlotOrientation.VERTICAL,
 						true,
@@ -117,6 +117,9 @@ public class choicePanel extends JPanel{
 						false);
 				
 				ChartPanel myChart = new ChartPanel(barChart);
+				
+				Parser.graphPanel.removeAll();
+				Parser.graphPanel.updateUI();
 				Parser.graphPanel.add(myChart, BorderLayout.CENTER);
 				Parser.graphPanel.validate();
 				
@@ -134,7 +137,7 @@ public class choicePanel extends JPanel{
 			String[][] yearDistribution = statsPanel.yearDistribution();
 
 			// create a year x 6 array to hold star ratings per year 
-			int[][] reviewsPerYear = new int[5][6];
+			int[][] reviewsPerYear = new int[5][7];
 
 			//iterate through array and assign the years into the reviewsPerYear, year column 
 			for(int i = 0; i < 5; i++) { 
@@ -147,7 +150,7 @@ public class choicePanel extends JPanel{
 			List<Review> allReviewsList = Parser.getReviews();
 
 			//Iterate over all the years 
-			for(int i = 0; i < 5; i++) { 
+			for(int i = 0; i < 5; i++) {				
 				//Iterate over all the reviews 
 				for(Review r : allReviewsList) {
 
@@ -160,26 +163,32 @@ public class choicePanel extends JPanel{
 						//switch case depending on value, and then add to that count 
 						double thisStarDouble = Double.valueOf(r.getStar());
 						int thisStarInt = (int) thisStarDouble; 
+										
 						
 						switch(thisStarInt) { 
 							case 1: 
 								reviewsPerYear[i][1]++; 
+								reviewsPerYear[i][6]++; 
 								break;
 			
 							case 2: 
 								reviewsPerYear[i][2]++;
+								reviewsPerYear[i][6]++;
 								break; 
 							
 							case 3: 
 								reviewsPerYear[i][3]++; 
+								reviewsPerYear[i][6]++;
 								break;
 							
 							case 4: 
 								reviewsPerYear[i][4]++; 
+								reviewsPerYear[i][6]++;
 								break; 
 								
 							case 5: 
 								reviewsPerYear[i][5]++; 
+								reviewsPerYear[i][6]++;
 								break;
 							default: 
 								break;
@@ -187,11 +196,11 @@ public class choicePanel extends JPanel{
 					}//end if 
 				}//end inner loop
 
-				dataset.addValue(reviewsPerYear[i][1], String.valueOf(reviewsPerYear[i][0]), starLabels[0]);
-				dataset.addValue(reviewsPerYear[i][2], String.valueOf(reviewsPerYear[i][0]), starLabels[1]);
-				dataset.addValue(reviewsPerYear[i][3], String.valueOf(reviewsPerYear[i][0]), starLabels[2]);
-				dataset.addValue(reviewsPerYear[i][4], String.valueOf(reviewsPerYear[i][0]), starLabels[3]);
-				dataset.addValue(reviewsPerYear[i][5], String.valueOf(reviewsPerYear[i][0]), starLabels[4]);
+				dataset.addValue(((double) reviewsPerYear[i][1]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[0]);
+				dataset.addValue(((double) reviewsPerYear[i][2]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[1]);
+				dataset.addValue(((double) reviewsPerYear[i][3]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[2]);
+				dataset.addValue(((double) reviewsPerYear[i][4]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[3]);
+				dataset.addValue(((double) reviewsPerYear[i][5]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[4]);
 					
 			}//end outer loop			
 			
@@ -211,7 +220,7 @@ public class choicePanel extends JPanel{
 				JFreeChart barChart = ChartFactory.createBarChart(
 						statsPanel.pSkuText.getText() + " - Star Ratings vs Seller",
 						"Star Rating",
-						"Count",
+						"Percentage (%)",
 						createDataset(),
 						PlotOrientation.VERTICAL,
 						true,
@@ -219,6 +228,8 @@ public class choicePanel extends JPanel{
 						false);
 				
 				ChartPanel myChart = new ChartPanel(barChart);
+				Parser.graphPanel.removeAll();
+				Parser.graphPanel.updateUI();
 				Parser.graphPanel.add(myChart, BorderLayout.CENTER);
 				Parser.graphPanel.validate();
 				
@@ -239,13 +250,13 @@ public class choicePanel extends JPanel{
 			// pull the years from year distribution 
 			String[][] sellerDistribution = statsPanel.sellerDistribution();
 			  
-			// create a Seller x 6 array to hold star ratings per Seller 
+			// create a Seller x 7 array to hold star ratings per Seller 
 			String[][] reviewsPerSeller = { 
-					{null,"0","0","0","0","0"}, 
-					{null,"0","0","0","0","0"},
-					{null,"0","0","0","0","0"}, 
-					{null,"0","0","0","0","0"},
-					{null,"0","0","0","0","0"}
+					{null,"0","0","0","0","0", "0"}, 
+					{null,"0","0","0","0","0", "0"}, 
+					{null,"0","0","0","0","0", "0"}, 
+					{null,"0","0","0","0","0", "0"}, 
+					{null,"0","0","0","0","0", "0"}					
 				};
 			  
 			//iterate through array and assign the Sellers into the reviewsPerSeller, Seller column
@@ -282,29 +293,59 @@ public class choicePanel extends JPanel{
 							  
 							switch(thisStarInt) { 
 								case 1: 
+									//increment 1-star counts
 									oldValue = Integer.valueOf(reviewsPerSeller[i][1]); 
 									newValue = oldValue + 1;
 									reviewsPerSeller[i][1] = String.valueOf(newValue); 
+									
+									//increment sum
+									oldValue = Integer.valueOf(reviewsPerSeller[i][6]); 
+									newValue = oldValue + 1;
+									reviewsPerSeller[i][6] = String.valueOf(newValue); 
 									break; 
 								case 2: 
+									//increment 2-star counts
 									oldValue = Integer.valueOf(reviewsPerSeller[i][2]); 
 									newValue = oldValue + 1;
 									reviewsPerSeller[i][2] = String.valueOf(newValue); 
+									
+									//increment sum
+									oldValue = Integer.valueOf(reviewsPerSeller[i][6]); 
+									newValue = oldValue + 1;
+									reviewsPerSeller[i][6] = String.valueOf(newValue); 
 									break; 
 								case 3: 
+									//increment 3-star counts
 									oldValue = Integer.valueOf(reviewsPerSeller[i][3]); 
 									newValue = oldValue + 1;
 									reviewsPerSeller[i][3] = String.valueOf(newValue); 
+									
+									//increment sum
+									oldValue = Integer.valueOf(reviewsPerSeller[i][6]); 
+									newValue = oldValue + 1;
+									reviewsPerSeller[i][6] = String.valueOf(newValue); 
 									break; 
 								case 4: 
+									//increment 4-star counts
 									oldValue = Integer.valueOf(reviewsPerSeller[i][4]); 
 									newValue = oldValue + 1;
 									reviewsPerSeller[i][4] = String.valueOf(newValue); 
+									
+									//increment sum
+									oldValue = Integer.valueOf(reviewsPerSeller[i][6]); 
+									newValue = oldValue + 1;
+									reviewsPerSeller[i][6] = String.valueOf(newValue); 
 									break; 
 								case 5: 
+									//increment 5-star counts
 									oldValue = Integer.valueOf(reviewsPerSeller[i][5]); 
 									newValue = oldValue + 1;
 									reviewsPerSeller[i][5] = String.valueOf(newValue); 
+									
+									//increment sum
+									oldValue = Integer.valueOf(reviewsPerSeller[i][6]); 
+									newValue = oldValue + 1;
+									reviewsPerSeller[i][6] = String.valueOf(newValue); 
 									break; 
 								default: 
 									break;
@@ -312,11 +353,14 @@ public class choicePanel extends JPanel{
 						}//end if 
 					}//end inner loop
 				
-				dataset.addValue(Integer.parseInt(reviewsPerSeller[i][1]), String.valueOf(reviewsPerSeller[i][0]), starLabels[0]);
-				dataset.addValue(Integer.parseInt(reviewsPerSeller[i][2]), String.valueOf(reviewsPerSeller[i][0]), starLabels[1]);
-				dataset.addValue(Integer.parseInt(reviewsPerSeller[i][3]), String.valueOf(reviewsPerSeller[i][0]), starLabels[2]);
-				dataset.addValue(Integer.parseInt(reviewsPerSeller[i][4]), String.valueOf(reviewsPerSeller[i][0]), starLabels[3]);
-				dataset.addValue(Integer.parseInt(reviewsPerSeller[i][5]), String.valueOf(reviewsPerSeller[i][0]), starLabels[4]);		
+					
+				dataset.addValue((Double.valueOf(reviewsPerSeller[i][1])/Double.valueOf(reviewsPerSeller[i][6])) * 100, String.valueOf(reviewsPerSeller[i][0]), starLabels[0]);
+				dataset.addValue((Double.valueOf(reviewsPerSeller[i][2])/Double.valueOf(reviewsPerSeller[i][6])) * 100, String.valueOf(reviewsPerSeller[i][0]), starLabels[1]);
+				dataset.addValue((Double.valueOf(reviewsPerSeller[i][3])/Double.valueOf(reviewsPerSeller[i][6])) * 100, String.valueOf(reviewsPerSeller[i][0]), starLabels[2]);
+				dataset.addValue((Double.valueOf(reviewsPerSeller[i][4])/Double.valueOf(reviewsPerSeller[i][6])) * 100, String.valueOf(reviewsPerSeller[i][0]), starLabels[3]);
+				dataset.addValue((Double.valueOf(reviewsPerSeller[i][5])/Double.valueOf(reviewsPerSeller[i][6])) * 100, String.valueOf(reviewsPerSeller[i][0]), starLabels[4]);
+					
+					
 				
 				}//end outer if 
 			}//end outer loop
@@ -344,6 +388,8 @@ public class choicePanel extends JPanel{
 						false);
 				
 				ChartPanel myChart = new ChartPanel(barChart);
+				Parser.graphPanel.removeAll();
+				Parser.graphPanel.updateUI();
 				Parser.graphPanel.add(myChart, BorderLayout.CENTER);
 				Parser.graphPanel.validate();
 				

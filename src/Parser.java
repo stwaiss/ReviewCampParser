@@ -67,6 +67,9 @@ public class Parser extends JFrame {
 		taConsole.setEditable(false);
 		taConsole.setFocusable(false);
 		
+		//Look and Feel changes font for the text field, so change it back!
+		taConsole.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		
 		//Force console to auto-scroll to bottom of window
 		DefaultCaret caret = (DefaultCaret)taConsole.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);

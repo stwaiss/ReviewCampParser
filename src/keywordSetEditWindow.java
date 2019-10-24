@@ -1,9 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -24,7 +27,7 @@ public class keywordSetEditWindow extends JFrame{
 	public keywordSetEditWindow() {
 		//Boilerplate JFrame methods
 		setTitle("Review Camp Parser - Keyword Viewer");
-		setSize(400,500);
+		setSize(400,550);
 		setLayout(new BorderLayout());
 		//Try and open up the icon file to be assigned to the window.
 		try {
@@ -55,6 +58,7 @@ public class keywordSetEditWindow extends JFrame{
 		
 		//initialize extra components
 		input = new JTextField(8);
+		input.addKeyListener(new inputEnterListener());
 		addButton = new JButton("Add");
 		addButton.addActionListener(new addButtonListener());
 		
@@ -87,6 +91,9 @@ public class keywordSetEditWindow extends JFrame{
 		JScrollPane scrollPane = new JScrollPane(textArea,
 				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		//Look and Feel changes font for the text field, so change it back!
+		textArea.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		
 		
 		//add the scrollable wrapper to the panel, and then add to the frame
 		JPanel keywordPanel = new JPanel();
@@ -162,8 +169,65 @@ public class keywordSetEditWindow extends JFrame{
 				}
 				
 				Parser.writeOutKeywordSets();
+				
+				input.setText("");
 			}			
 		}
+	}
+	
+	public class inputEnterListener implements KeyListener{
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+			if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+				String selectedProductType = "";
+				selectedProductType = comboBox.getSelectedItem().toString();
+				
+				String newKeyword = "";
+				newKeyword = input.getText().trim();
+				
+				if(!selectedProductType.isEmpty() && !newKeyword.isEmpty()) {
+					//pull the list of all keyword sets and save locally
+					List<keywordSet> allKeywordSetsList = Parser.getKeywordSet();
+					
+					keywordSet selection = new keywordSet();
+					
+					//iterate over all the keyword sets to find the one with the selected product type
+					for (int i = 0; i < allKeywordSetsList.size(); i++) {
+						if(allKeywordSetsList.get(i).getProductType().equalsIgnoreCase(selectedProductType)) {
+							selection = allKeywordSetsList.get(i);
+						}
+					}
+					
+					selection.keywordList.add(newKeyword);
+					
+					keywordSetEditWindow.textArea.setText("");
+					
+					//pull the list of keywords from that product type and print to the text area
+					for(int i = 0; i < selection.keywordList.size(); i++) {
+						keywordSetEditWindow.textArea.append(selection.keywordList.get(i) + "\n");
+					}
+					
+					Parser.writeOutKeywordSets();
+					
+					input.setText("");
+				}			
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 
 }

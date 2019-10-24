@@ -25,7 +25,6 @@ public class pathPanel extends JPanel{
 	public static String productType = "";
 	public static String productSku = "";
 	static XSSFRow row;
-	
 
 	//*******************************************************************************
 
@@ -34,7 +33,6 @@ public class pathPanel extends JPanel{
 		
 		JButton search = new JButton("Search");
 		search.addActionListener(new fileFindBtnListener());
-		
 		
 		add(new JLabel("Click Search Button to find Excel file to be analyzed: "));
 		add(search);
@@ -52,6 +50,7 @@ public class pathPanel extends JPanel{
 			reviews.clear();
 			
 			JFileChooser fc = new JFileChooser();
+			
 			int returnVal = fc.showOpenDialog(new JFrame());
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fc.getSelectedFile();
@@ -60,7 +59,7 @@ public class pathPanel extends JPanel{
 				FileInputStream fis;
 
 				try {
-					
+
 					//Create new spreadsheet and iterators
 					fis = new FileInputStream(file);
 					XSSFWorkbook workbook = new XSSFWorkbook(fis);
@@ -79,6 +78,11 @@ public class pathPanel extends JPanel{
 						//While there is another cell to parse, iterate over cells and save to array
 						while(cellIterator.hasNext()) {
 							Cell cell = cellIterator.next();
+							if(cell.toString().equalsIgnoreCase("date") || cell.toString().contains("reviewcamp")) {
+								break;
+							}
+							
+							
 							data[count] = cell.toString();
 							count++;
 							//System.out.println(cell.toString());
@@ -128,7 +132,7 @@ public class pathPanel extends JPanel{
 							null, 
 							options, 
 							(String) options[0]);
-					} while(productType == "" && count < 2);
+					} while(productType == "" || productType == null);
 					
 					count = 0;
 					
@@ -137,6 +141,7 @@ public class pathPanel extends JPanel{
 						productSku = (String) JOptionPane.showInputDialog(null, "Enter " + productType + " SKU");
 					} while (productSku == "" && count < 2);
 					
+					statsPanel.fillStatPanelStats();
 				}
 
 				catch (IOException f) {
@@ -147,9 +152,6 @@ public class pathPanel extends JPanel{
 					System.out.println("Please make sure there is no header info and that there are only 5 columns of data.");
 				}
 			}
-			
-			statsPanel.fillStatPanelStats();
-
 		}
 	}
 	

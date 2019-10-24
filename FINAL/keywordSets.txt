@@ -1,3 +1,4 @@
+ - does not work, broke, stopped
 Grill - does not work, broke, stopped, overcook, undercook, burn, raw, smoke, hard to clean
 Personal Groomer - does not work, broke, bad cut, loud, noisy, not sharp, dull, clog
 Coffee Maker - does not work, broke, stopped, cold, too hot, drip, leak, burn, spill, scald
@@ -11,9 +12,10 @@ Percolator - does not work, broke, stopped
 Hair Dryer - does not work, broke, stopped
 Curling Iron - does not work, broke, stopped
 Epilator - does not work, broke, stopped
-Straigtener - does not work, broke, stopped
+Straigtener - does not work, broke, stopped, burn
 Slow Cooker - does not work, broke, stopped
 Air Fryer - does not work, broke, stopped
 Foil Shaver - does not work, broke, stopped
 Rotary Shaver - does not work, broke, stopped
 Hair Setter - does not work, broke, stopped
+Hair Clipper - does not work, broke, stopped

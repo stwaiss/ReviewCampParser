@@ -1,3 +1,4 @@
+ - does not work, broke, stopped
 Grill - does not work, broken, overcook, undercook, burn, raw, smoke, hard to clean
 Personal Groomer - does not work, broken, bad cut, loud, noisy, not sharp, dull, clog
 Coffee Maker - stopped, broke, cold, too hot, drip, leak, burn, spill, scald, shatter, cut
@@ -6,3 +7,4 @@ Juicer - does not work, broke, stopped
 Blender - noisy, loud, broke
 Can Opener - does not work, broke, stopped
 Kettle - noisy, cold, too hot, spills, leak, spill, drip, dribble
+Hair Clipper - does not work, broke, stopped, clogs, jam, loud, noisy

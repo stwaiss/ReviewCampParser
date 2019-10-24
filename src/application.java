@@ -1,3 +1,8 @@
+import java.awt.Color;
+
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /* Review Camp Excel Parser
  * 10/21/2019
  * Sean Waiss - Quality Engineer
@@ -26,6 +31,17 @@ public class application {
 	public final static String VERSION_NUMBER = "1.0"; 
 	
 	public static void main(String[] args) {
+		
+		  try {
+		  //UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		  UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		  }
+		  catch (ClassNotFoundException | InstantiationException |
+				  IllegalAccessException | UnsupportedLookAndFeelException e) { // TODO
+			  // Auto-generated catch block 
+			  e.printStackTrace(); 
+			  }
+		 
 		window = new Parser();
 		window.setVisible(true);
 	}
