@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.util.*;
 import javax.swing.*;
 
+import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -77,12 +79,7 @@ public class pathPanel extends JPanel{
 						
 						//While there is another cell to parse, iterate over cells and save to array
 						while(cellIterator.hasNext()) {
-							Cell cell = cellIterator.next();
-							if(cell.toString().equalsIgnoreCase("date") || cell.toString().contains("reviewcamp")) {
-								break;
-							}
-							
-							
+							Cell cell = cellIterator.next();							
 							data[count] = cell.toString();
 							count++;
 							//System.out.println(cell.toString());
@@ -150,6 +147,10 @@ public class pathPanel extends JPanel{
 				
 				catch (ArrayIndexOutOfBoundsException f) {
 					System.out.println("Please make sure there is no header info and that there are only 5 columns of data.");
+				}
+				
+				catch (NotOfficeXmlFileException f) {
+					System.out.println("This is not an excel workbook file");
 				}
 			}
 		}

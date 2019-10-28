@@ -21,6 +21,7 @@ public class Parser extends JFrame {
 	public static choicePanel choicePanel;
 	public static screenCapPanel screenCapPanel;
 	public static parserMenuBar menuBar;
+	public static JTextArea taConsole;
 	private static List<Review> reviews = new ArrayList<Review>();
 	private static List<keywordSet> masterKeywordSet = new ArrayList<keywordSet>();
 	
@@ -28,6 +29,7 @@ public class Parser extends JFrame {
 	
 	public Parser() {
 		//Boilerplate JFrame methods
+		setFont(new Font("SansSerif", Font.PLAIN, 20));
 		setTitle("Review Camp Parser");
 		setSize(1000,750);
 		setLayout(new BorderLayout());
@@ -61,7 +63,7 @@ public class Parser extends JFrame {
 		
 		//Set default console output as JTextArea
 		//Create console
-		JTextArea taConsole = new JTextArea(15,30);
+		taConsole = new JTextArea(15,30);
 		taConsole.setWrapStyleWord(true);
 		taConsole.setLineWrap(true);
 		taConsole.setEditable(false);
@@ -152,7 +154,7 @@ public class Parser extends JFrame {
 			Scanner scanner = new Scanner(keywordSetsFile);
 			scanner.useDelimiter("\n");
 			
-			//while there are more lines delimited with a ;
+			//while there are more lines delimited with a \n
 			while(scanner.hasNext()) {
 				
 				//Save the data
@@ -194,8 +196,7 @@ public class Parser extends JFrame {
 			
 			//System.out.println(masterKeywordSet.size() + " keyword sets were added\n");
 		
-			scanner.close();
-		
+			scanner.close();		
 			
 			//If there's not text file in the directory, create a new one and add one product type;
 		} catch (FileNotFoundException e) {
@@ -223,7 +224,7 @@ public class Parser extends JFrame {
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Error writing text file");
+			System.out.println("Error writing text file\n");
 		}
 		
 	}

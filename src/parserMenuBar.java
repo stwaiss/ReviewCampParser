@@ -62,6 +62,9 @@ public class parserMenuBar extends JMenuBar {
 	public class screenCapListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			try {
+				
+				application.window.setLocationRelativeTo(null);
+				
 				Robot rbt = new Robot();
 				Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 				BufferedImage background = rbt.createScreenCapture(screenRect);

@@ -22,13 +22,13 @@ public class screenCapPanel extends JPanel {
 	}
 	
 	public class submitBtnListener implements ActionListener{
-
-		//eventually, it'll pull the radio button that was selected and make a pretty graph. 
-		//BUT WE ARENT THERE YET!
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
+				
+				application.window.setLocationRelativeTo(null);
+				
 				Robot rbt = new Robot();
 				Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 				BufferedImage background = rbt.createScreenCapture(screenRect);
