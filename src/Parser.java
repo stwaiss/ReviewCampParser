@@ -30,7 +30,7 @@ public class Parser extends JFrame {
 	public Parser() {
 		//Boilerplate JFrame methods
 		setFont(new Font("SansSerif", Font.PLAIN, 20));
-		setTitle("Review Camp Parser");
+		setTitle("Review Camp Parser " + application.VERSION_NUMBER);
 		setSize(1000,750);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -53,6 +53,10 @@ public class parserMenuBar extends JMenuBar {
 		helpMenu.add(aboutMenu);
 		aboutMenu.addActionListener(new aboutMenuListener());
 		
+		JMenuItem versionHistoryMenu = new JMenuItem("Version History");
+		helpMenu.add(versionHistoryMenu);
+		versionHistoryMenu.addActionListener(new versionHistoryMenuListener());
+		
 		add(helpMenu);
 		
 	}
@@ -116,6 +120,18 @@ public class parserMenuBar extends JMenuBar {
 			JOptionPane.showInternalMessageDialog(null, 
 					"Review Camp Analyser\nVersion Number: " + application.VERSION_NUMBER + 
 					"\nCreated by: Sean Waiss\nCopyright: Spectrum Brands, " + year);
+		}
+	}
+	
+	public class versionHistoryMenuListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			JOptionPane.showInternalMessageDialog(null, 
+					"Review Camp Analyzer Version History Log:\n\n"
+					+ "1.0.0 : (24 OCT 2019) Initial release\n"
+					+ "1.0.1 : (29 OCT 2019) Corrected year formatting issues"
+					
+					);
+			
 		}
 	}
 }

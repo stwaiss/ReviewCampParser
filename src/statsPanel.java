@@ -37,6 +37,8 @@ public class statsPanel extends JPanel{
 	public static JTextField pSkuText = new JTextField("");
 	
 	private static List<Review> reviews = new ArrayList<Review>();
+	
+	public static int yearPosition;
 
 	//*********************************************************************************
 	
@@ -318,10 +320,18 @@ public class statsPanel extends JPanel{
 		Review[] allReviewsArray = new Review[reviews.size()];
 		reviews.toArray(allReviewsArray);
 		
+		// determine formatting of date string and find which position the year is located in.
+		String[] testYear = allReviewsArray[0].getDate().split("-");
+		for(yearPosition = 0; yearPosition < 3; yearPosition++) {
+			if(testYear[yearPosition].length() == 4) {
+				break;
+			}
+		}
+		
 		// iterate over new review array, delimit each date by /, and store year value into allYears
 		for(int i = 0; i< allReviewsArray.length; i++) {
 			String[] thisDate = allReviewsArray[i].getDate().split("-");
-			allYears[i] = thisDate[0];
+			allYears[i] = thisDate[yearPosition];
 		}
 		
 		// sort allYears

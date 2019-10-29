@@ -28,7 +28,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class application {
 	public static Parser window;
-	public final static String VERSION_NUMBER = "1.0"; 
+	public final static String VERSION_NUMBER = "1.0.1"; 
 	
 	public static void main(String[] args) {
 		

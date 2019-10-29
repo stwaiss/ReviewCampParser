@@ -155,7 +155,7 @@ public class choicePanel extends JPanel{
 				for(Review r : allReviewsList) {
 
 					//Pull the year out from the date of the current review 
-					String thisReviewsYear = r.getDate().split("-")[0];
+					String thisReviewsYear = r.getDate().split("-")[statsPanel.yearPosition];
 	
 					//check to see if the year from this current review is the same as the year under analysis 
 					if(Integer.valueOf(thisReviewsYear) == reviewsPerYear[i][0]) {
