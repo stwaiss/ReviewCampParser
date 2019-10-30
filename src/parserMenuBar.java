@@ -118,7 +118,7 @@ public class parserMenuBar extends JMenuBar {
 		public void actionPerformed(ActionEvent e) {
 			int year = Calendar.getInstance().get(Calendar.YEAR);
 			JOptionPane.showInternalMessageDialog(null, 
-					"Review Camp Analyser\nVersion Number: " + application.VERSION_NUMBER + 
+					"Telescope - A Review Camp Analysis Tool\nVersion Number: " + application.VERSION_NUMBER + 
 					"\nCreated by: Sean Waiss\nCopyright: Spectrum Brands, " + year);
 		}
 	}
@@ -128,8 +128,8 @@ public class parserMenuBar extends JMenuBar {
 			JOptionPane.showInternalMessageDialog(null, 
 					"Review Camp Analyzer Version History Log:\n\n"
 					+ "1.0.0 : (24 OCT 2019) Initial release\n"
-					+ "1.0.1 : (29 OCT 2019) Corrected year formatting issues"
-					
+					+ "1.0.1 : (29 OCT 2019) Corrected year formatting issues\n"
+					+ "1.0.2 : (30 OCT 2019) Project Rename and fixed Keyword Sets\n"
 					);
 			
 		}

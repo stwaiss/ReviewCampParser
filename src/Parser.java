@@ -30,7 +30,7 @@ public class Parser extends JFrame {
 	public Parser() {
 		//Boilerplate JFrame methods
 		setFont(new Font("SansSerif", Font.PLAIN, 20));
-		setTitle("Review Camp Parser " + application.VERSION_NUMBER);
+		setTitle("Telescope " + application.VERSION_NUMBER);
 		setSize(1000,750);
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -87,8 +87,7 @@ public class Parser extends JFrame {
 		readInKeywordSets();
 		writeOutKeywordSets();
 		
-		System.out.println("Delete all header data, and save your excel file."
-				+ "\nEnter the file path into the box above! \n");
+		System.out.println("Delete all header data, and save your excel file.\nColumns must be: Date, Seller, Star, Title, Review\n");
 		
 		//Add a new JPanel for the console and add to JFrame
 		JPanel consolePanel = new JPanel();
@@ -216,8 +215,13 @@ public class Parser extends JFrame {
 			//test.add("This is a test!");
 			//masterKeywordSet.add(new keywordSet("Hello", test));
 			
-			for(keywordSet k : masterKeywordSet) {
-				fileWriter.write(k.toString());
+			for(keywordSet k : masterKeywordSet) {				
+				//prevent any stray, "empty" keywordSets from being written to the file 
+				if(!k.getProductType().isEmpty()) {
+					
+					//write the keywordSet to the file
+					fileWriter.write(k.toString());
+				}
 			}
 			
 			fileWriter.close();

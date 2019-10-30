@@ -1,21 +1,29 @@
-Grill - does not work, broke, stopped, overcook, undercook, burn, raw, smoke, hard to clean
-Personal Groomer - does not work, broke, bad cut, loud, noisy, not sharp, dull, clog
-Coffee Maker - does not work, broke, stopped, cold, too hot, drip, leak, burn, spill, scald
-Toaster Oven - does not work, broke, stopped, burn, smoke, fire
-Juicer - does not work, broke, stopped
-Blender - does not work, broke, stopped, noisy, loud, broke
-Can Opener - does not work, broke, stopped
-Kettle - does not work, broke, stopped, noisy, cold, too hot, leak, spill, drip, dribble
-Toaster - does not work, broke, stopped, burn, smoke, fire
-Percolator - does not work, broke, stopped
-Hair Dryer - does not work, broke, stopped, loud, burn, smoke
-Curling Iron - does not work, broke, stopped, burn, smoke
-Epilator - does not work, broke, stopped
-Straigtener - does not work, broke, stopped, burn, smoke
-Slow Cooker - does not work, broke, stopped
+Grill - does not work, broke, stopped, overcook, undercook, burn, raw, smoke, hard to clean, plate, size
+Personal Groomer - does not work, broke, bad cut, loud, noisy, not sharp, dull, clog, irritat, cut, hot, blade, comb
+Coffee Maker - does not work, broke, stopped, cold, too hot, drip, leak, burn, spill, scald, temperature, brew, overflow
+Toaster Oven - does not work, broke, stopped, burn, smoke, fire, spark, timer, flame, button, dial, heat, rack, door, handle, glass
+Juicer - does not work, broke, stopped, leak, smoke, burn, smell, loud, wasteful, small
+Blender - does not work, broke, stopped, noisy, loud, broke, smoke, burn, cut, clean
+Can Opener - does not work, broke, stopped, shavings, cut
+Kettle - does not work, broke, stopped, noisy, cold, too hot, leak, spill, drip, dribble, turn off, spark, taste
+Toaster - does not work, broke, stopped, burn, smoke, fire, uneven, cord, heat, spark, lever, tray, button, timer
+Percolator - does not work, broke, stopped, cord, spark, lid
+Hair Dryer - does not work, broke, stopped, loud, burn, smoke, spark, melt, deform, hot
+Curling Iron - does not work, broke, stopped, burn, smoke, spark
+Epilator - does not work, broke, stopped, pain, irritat, hurt
+Straigtener - does not work, broke, stopped, burn, smoke, heat, spark, cord, melt, smell
+Slow Cooker - does not work, broke, stopped, wifi, wi
 Air Fryer - does not work, broke, stopped
-Foil Shaver - does not work, broke, stopped, irritat, burn, sting, dull
-Rotary Shaver - does not work, broke, stopped, irritat, burn, sting, dull
-Hair Setter - does not work, broke, stopped
-Hair Clipper - does not work, broke, stopped, bad cut, loud, noisy, not sharp, dull, clog
-Skillet - does not work, broke, stopped, overcooks, undercooks
+Foil Shaver - does not work, broke, stopped, irritat, burn, sting, dull, cut, nois, foil, charge
+Rotary Shaver - does not work, broke, stopped, irritat, burn, sting, dull, loud, cut, trim, blade, clean, charge, fit
+Hair Setter - does not work, broke, stopped, melt, too hot, uneven, smoke, burn, spark, clip, roller
+Hair Clipper - does not work, broke, stopped, bad cut, loud, noisy, not sharp, dull, clog, hot, irritat, pull, comb
+Skillet - does not work, broke, stopped, overcook, undercook, uneven, probe, spark, burn, fire
+Electric Knife - does not work, broke, stopped, cut
+Griddle - does not work, broke, stopped, spark, uneven, long, temp, clean
+Iron - does not work, broke, stopped, spark, smoke, drip, burn, leak, smell, clean, steam
+Mixer - does not work, broke, stopped, cut, plastic, sharp, loud, smoke, spark, mix, beater
+Pressure Cooker - does not work, broke, stopped
+Rice Cooker - does not work, broke, stopped, overcook, smoke, boil, size, small, spark, fire, burn
+Food Processor - does not work, broke, stopped, blade, loud, dull, cut, bowl
+Garment Steamer - does not work, broke, stopped, cord, leak, spark, temp, steam, drip

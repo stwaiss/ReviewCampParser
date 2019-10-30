@@ -3,7 +3,7 @@ import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-/* Review Camp Excel Parser
+/* Telescope - A Review Camp Excel Parser
  * 10/21/2019
  * Sean Waiss - Quality Engineer
  * Spectrum Brands, INC
@@ -28,7 +28,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class application {
 	public static Parser window;
-	public final static String VERSION_NUMBER = "1.0.1"; 
+	public final static String VERSION_NUMBER = "1.0.2"; 
 	
 	public static void main(String[] args) {
 		

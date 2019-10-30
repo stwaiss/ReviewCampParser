@@ -26,7 +26,7 @@ public class keywordSetEditWindow extends JFrame{
 	
 	public keywordSetEditWindow() {
 		//Boilerplate JFrame methods
-		setTitle("Review Camp Parser - Keyword Viewer");
+		setTitle("Telescope " + application.VERSION_NUMBER + " - Keyword Viewer");
 		setSize(400,550);
 		setLayout(new BorderLayout());
 		//Try and open up the icon file to be assigned to the window.
