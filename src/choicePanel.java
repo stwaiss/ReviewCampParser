@@ -409,7 +409,7 @@ public class choicePanel extends JPanel{
 			List<Review> allReviews = Parser.getReviews();
 			
 			String productType = Parser.pathPanel.productType;
-			keywordSet selection = new keywordSet();
+			keywordSet selection = new keywordSet("","",null);
 			List<keywordSet> allKeywordSetsList = Parser.getKeywordSet();
 			
 			//iterate over all the keyword sets to find the one with the selected product type

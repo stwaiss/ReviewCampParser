@@ -160,15 +160,19 @@ public class Parser extends JFrame {
 				String line = scanner.nextLine();
 				
 				//Split the line by the hyphen, trim the whitespace, and save the product type
-				String productType = line.split("-")[0].trim();
+				String division = line.split("-")[0].trim();
+				
+				
+				String productType = line.split("-")[1].trim();
+				
 				
 				//Use everything else to save into a string array, split by commas
-				String keywordDataArrayString = line.split("-")[1].trim();
+				String keywordDataArrayString = line.split("-")[2].trim();
 				
 				String keywordDataArray[];
 				
 				if(keywordDataArrayString.isBlank()) {
-					keywordSet k = new keywordSet(productType);
+					keywordSet k = new keywordSet(division, productType, new ArrayList<String>());
 					masterKeywordSet.add(k);
 				}
 				
@@ -184,7 +188,7 @@ public class Parser extends JFrame {
 					}
 					
 					//Create a new keywordSet and add to master;
-					keywordSet k = new keywordSet(productType, keywordDataList);
+					keywordSet k = new keywordSet(division, productType, keywordDataList);
 					masterKeywordSet.add(k);	
 				}
 			}
@@ -202,7 +206,7 @@ public class Parser extends JFrame {
 			// TODO Auto-generated catch block
 			File file = new File("keywordSets.txt");
 
-			keywordSet k = new keywordSet("Toaster");
+			keywordSet k = new keywordSet("HPC", "Toaster", new ArrayList<String>());
 			masterKeywordSet.add(k);
 		}
 	}

@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -102,13 +104,30 @@ public class parserMenuBar extends JMenuBar {
 	
 	public class addProductTypesListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			String newProductType = (String) JOptionPane.showInputDialog(null, "Enter new product type");
+			String[] choices = {"GPC", "HPC","HHI","H&G"};
+			Arrays.sort(choices);
 			
-			if (newProductType != null && !newProductType.equalsIgnoreCase("")) {
-				List<keywordSet> master = Parser.getKeywordSet();
-				master.add(new keywordSet(newProductType));
-				Parser.writeOutKeywordSets();
-				JOptionPane.showInternalMessageDialog(null, newProductType + " has been added!");
+			String newDivision = (String) JOptionPane.showInputDialog(
+					null,
+					"Enter division for new product type",
+					"Select Division",
+					JOptionPane.QUESTION_MESSAGE,
+					null,
+					choices,
+					choices[0]
+					
+				);		
+			
+			if (newDivision != null && !newDivision.equalsIgnoreCase("")) {
+				
+				String newProductType = (String) JOptionPane.showInputDialog(null, "Enter new product type");
+				
+				if (newProductType != null && !newProductType.equalsIgnoreCase("")) {
+					List<keywordSet> master = Parser.getKeywordSet();
+					master.add(new keywordSet(newDivision, newProductType, new ArrayList<String>()));
+					Parser.writeOutKeywordSets();
+					JOptionPane.showInternalMessageDialog(null, newProductType + " has been added!");
+				}	
 			}			
 		}
 	}

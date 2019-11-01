@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 public class keywordSetEditWindow extends JFrame{
 	
-	static JComboBox comboBox;
+	static JComboBox divisionComboBox, productTypeComboBox;
 	static JTextField input;
 	static JButton addButton;
 	static JTextArea textArea = new JTextArea(20,10);
@@ -41,20 +42,23 @@ public class keywordSetEditWindow extends JFrame{
 		
 		//insert a blank one for the drop down list
 		if(!allKeywordSetsList.get(0).getProductType().isEmpty()) {
-			allKeywordSetsList.add(0, new keywordSet(""));
+			allKeywordSetsList.add(0, new keywordSet("", "", new ArrayList<String>()));
 		}
-		
-		String[] allProductTypesArray = new String[allKeywordSetsList.size()];
-		//save just the product types into an array
-		for(int i = 0; i < allProductTypesArray.length; i++) {
-			allProductTypesArray[i] = allKeywordSetsList.get(i).getProductType();
-		}
-		
-		Arrays.sort(allProductTypesArray);
+
+		//Create combo box for divisions
+		String[] allDivisionsArray = {"GPC", "HHI", "HPC", "H&G"};
 			
+		Arrays.sort(allDivisionsArray);
+		
+		
 		//populate the drop down list and add the action listener
-		comboBox = new JComboBox(allProductTypesArray);
-		comboBox.addActionListener(new comboBoxActionListener());
+		divisionComboBox = new JComboBox(allDivisionsArray);
+		divisionComboBox.addActionListener(new divisionToProductTypeComboBoxActionListener());		
+			
+		
+		//populate the drop down list and add the action listener
+		productTypeComboBox = new JComboBox();
+		productTypeComboBox.addActionListener(new productTypetoKeywordComboBoxActionListener());
 		
 		//initialize extra components
 		input = new JTextField(8);
@@ -64,14 +68,22 @@ public class keywordSetEditWindow extends JFrame{
 		
 		//create a wrapper to hold the controlling components
 		JPanel north = new JPanel();
-		north.setLayout(new GridLayout(2,1,5,5));
+		north.setLayout(new GridLayout(3,1,5,5));
 		
-		//create panel to hold a label and the dropdown
+		//create panel to hold a label and the division dropdown
 		JPanel northUpper = new JPanel();
-		northUpper.add(new JLabel("Select product type"));
-		northUpper.add(comboBox);
+		northUpper.add(new JLabel("Select division"));
+		northUpper.add(divisionComboBox);
 		
 		north.add(northUpper);
+		
+		
+		//create panel to hold a label and the product type dropdown
+		JPanel northMiddle = new JPanel();
+		northMiddle.add(new JLabel("Select product type"));
+		northMiddle.add(productTypeComboBox);
+		
+		north.add(northMiddle);
 		
 		//create a panel to hold a label, the input bar, and the button
 		JPanel northLower = new JPanel();
@@ -106,8 +118,45 @@ public class keywordSetEditWindow extends JFrame{
 		validate();
 	}
 	
+	public class divisionToProductTypeComboBoxActionListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+
+			//pull the string that was selected from the drop down
+			JComboBox cb = (JComboBox) e.getSource();
+			String selectedDivision = (String) cb.getSelectedItem();
+			
+			//pull the list of all keyword sets and save locally
+			List<keywordSet> allKeywordSetsList = Parser.getKeywordSet();
+			List<keywordSet> allKeywordSetsInDivision = new ArrayList<keywordSet>();
+			
+			//iterate over all the keyword sets to find the ones with the selected division
+			for(int i = 0; i < allKeywordSetsList.size(); i++) {
+				if(allKeywordSetsList.get(i).getDivision().equalsIgnoreCase(selectedDivision)) {
+					allKeywordSetsInDivision.add(allKeywordSetsList.get(i));
+				}
+			}
+
+			//create new array to hold strings of keywords from the division that was selected
+			String[] keywordStringArray = new String[allKeywordSetsInDivision.size()];
+			
+			//populate array
+			for(int i = 0; i < keywordStringArray.length; i++) {
+				keywordStringArray[i] = allKeywordSetsInDivision.get(i).getProductType();
+			}
+			
+			Arrays.sort(keywordStringArray);
+			
+			keywordSetEditWindow.productTypeComboBox.removeAllItems();
+			
+			for(int i = 0; i < keywordStringArray.length; i++) {
+				keywordSetEditWindow.productTypeComboBox.addItem(keywordStringArray[i]);
+			}
+		}
+	}
 	
-	public class comboBoxActionListener implements ActionListener{
+	
+	
+	public class productTypetoKeywordComboBoxActionListener implements ActionListener{
 		
 		public void actionPerformed(ActionEvent e) {
 			//System.out.println("In the listener");
@@ -119,7 +168,7 @@ public class keywordSetEditWindow extends JFrame{
 			//pull the list of all keyword sets and save locally
 			List<keywordSet> allKeywordSetsList = Parser.getKeywordSet();
 			
-			keywordSet selection = new keywordSet();
+			keywordSet selection = new keywordSet("","", null);
 			
 			//iterate over all the keyword sets to find the one with the selected product type
 			for (int i = 0; i < allKeywordSetsList.size(); i++) {
@@ -130,18 +179,20 @@ public class keywordSetEditWindow extends JFrame{
 			
 			keywordSetEditWindow.textArea.setText("");
 		
-			//pull the list of keywords from that product type and print to the text area
-			for(int i = 0; i < selection.keywordList.size(); i++) {
-				keywordSetEditWindow.textArea.append(selection.keywordList.get(i) + "\n");
-			}
-							
+			
+			if(selection.getKeywordList() != null) {
+				//pull the list of keywords from that product type and print to the text area
+				for(int i = 0; i < selection.keywordList.size(); i++) {
+					keywordSetEditWindow.textArea.append(selection.keywordList.get(i) + "\n");
+				}
+			}						
 		}
 	}
 
 	public class addButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String selectedProductType = "";
-			selectedProductType = comboBox.getSelectedItem().toString();
+			selectedProductType = productTypeComboBox.getSelectedItem().toString();
 			
 			String newKeyword = "";
 			newKeyword = input.getText().trim();
@@ -150,7 +201,7 @@ public class keywordSetEditWindow extends JFrame{
 				//pull the list of all keyword sets and save locally
 				List<keywordSet> allKeywordSetsList = Parser.getKeywordSet();
 				
-				keywordSet selection = new keywordSet();
+				keywordSet selection = new keywordSet("","",null);
 				
 				//iterate over all the keyword sets to find the one with the selected product type
 				for (int i = 0; i < allKeywordSetsList.size(); i++) {
@@ -188,7 +239,7 @@ public class keywordSetEditWindow extends JFrame{
 			// TODO Auto-generated method stub
 			if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 				String selectedProductType = "";
-				selectedProductType = comboBox.getSelectedItem().toString();
+				selectedProductType = productTypeComboBox.getSelectedItem().toString();
 				
 				String newKeyword = "";
 				newKeyword = input.getText().trim();
@@ -197,7 +248,7 @@ public class keywordSetEditWindow extends JFrame{
 					//pull the list of all keyword sets and save locally
 					List<keywordSet> allKeywordSetsList = Parser.getKeywordSet();
 					
-					keywordSet selection = new keywordSet();
+					keywordSet selection = new keywordSet("","",null);
 					
 					//iterate over all the keyword sets to find the one with the selected product type
 					for (int i = 0; i < allKeywordSetsList.size(); i++) {

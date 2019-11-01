@@ -1,25 +1,25 @@
 import java.util.*;
 
 public class keywordSet {
+	private String division;
 	private String productType;
 	public List<String> keywordList;
 	
-	public keywordSet() {
-		productType = "";
-		keywordList = new ArrayList<String>();
-	}
+//	public keywordSet() {
+//		division = "";
+//		productType = "";
+//		keywordList = new ArrayList<String>();
+//	}
 	
-	public keywordSet(String type) {
-		productType = type;
-		keywordList = new ArrayList<String>();
-		keywordList.add("does not work");
-		keywordList.add("broke");
-		keywordList.add("stopped");
-	}
 	
-	public keywordSet(String type, List<String> keywords) {
+	public keywordSet(String div, String type, List<String> keywords) {
+		division = div;
 		productType = type;
 		keywordList = keywords;
+	}
+	
+	public String getDivision() {
+		return division;
 	}
 	
 	public String getProductType() {
@@ -31,9 +31,9 @@ public class keywordSet {
 	}
 	
 	public String toString() {
-		String line = productType + " - ";
+		String line = division + " - " + productType + " - ";
 
-		//If there's nothing in the list, just return "productType - "
+		//If there's nothing in the list, just return "division - productType - "
 		if(keywordList.size() == 0) {
 			return line + " \n";
 		}
