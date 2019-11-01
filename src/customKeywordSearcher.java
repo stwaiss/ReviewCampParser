@@ -215,7 +215,7 @@ public class customKeywordSearcher {
 				dataset.addValue(Integer.valueOf(table[i][3]), starLabels[2], table[i][0]);
 				dataset.addValue(Integer.valueOf(table[i][4]), starLabels[3], table[i][0]);
 				dataset.addValue(Integer.valueOf(table[i][5]), starLabels[4], table[i][0]);
-				dataset.addValue(sum, "Total", table[i][0]);
+				//dataset.addValue(sum, "Total", table[i][0]);
 			}
 		
 		}

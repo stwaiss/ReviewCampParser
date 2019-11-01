@@ -218,11 +218,9 @@ public class statsPanel extends JPanel{
 		
 		//iterate over list
 		for(int i = 0; i < reviews.size(); i++) {
-			
-			//pull star value from review
+						
 			Double thisStarRatingDouble = Double.valueOf(reviews.get(i).getStar());
 			int thisStarRatingInt = thisStarRatingDouble.intValue();
-			
 			
 			//switch case depending on value, and then add to that count
 			switch(thisStarRatingInt) {
@@ -320,18 +318,18 @@ public class statsPanel extends JPanel{
 		Review[] allReviewsArray = new Review[reviews.size()];
 		reviews.toArray(allReviewsArray);
 		
-		// determine formatting of date string and find which position the year is located in.
-		String[] testYear = allReviewsArray[0].getDate().split("-");
-		for(yearPosition = 0; yearPosition < 3; yearPosition++) {
-			if(testYear[yearPosition].length() == 4) {
-				break;
-			}
-		}
-		
 		// iterate over new review array, delimit each date by /, and store year value into allYears
 		for(int i = 0; i< allReviewsArray.length; i++) {
 			String[] thisDate = allReviewsArray[i].getDate().split("-");
-			allYears[i] = thisDate[yearPosition];
+			
+			// determine formatting of date string and find which position the year is located in.
+			for(yearPosition = 0; yearPosition < 3; yearPosition++) {
+				if(thisDate[yearPosition].length() == 4) {
+					allYears[i] = thisDate[yearPosition];
+					break;
+				}
+			}
+			
 		}
 		
 		// sort allYears
@@ -366,6 +364,7 @@ public class statsPanel extends JPanel{
 			if(allYears[i].equalsIgnoreCase(table[nthYear][0])) {
 				nthYearCount++;
 				
+				//Make sure last year is counted
 				if (i == allYears.length - 1) {
 					table[nthYear][1] = Integer.toString(nthYearCount);
 				}
@@ -387,6 +386,11 @@ public class statsPanel extends JPanel{
 				try{
 					table[nthYear][0] = allYears[i];
 					nthYearCount++;
+					
+					//Make sure last year is counted
+					if (i == allYears.length - 1) {
+						table[nthYear][1] = Integer.toString(nthYearCount);
+					}
 				} catch(ArrayIndexOutOfBoundsException e) {
 					System.out.println(i);
 					e.printStackTrace();

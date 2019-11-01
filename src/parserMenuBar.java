@@ -75,7 +75,7 @@ public class parserMenuBar extends JMenuBar {
 				String desktopPath = javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory().getPath();
 				ImageIO.write(background, "png", new File (desktopPath + "\\screenshot" + count +".png"));
 				
-				System.out.println("Screenshot" + count + ".png saved to your desktop");
+				System.out.println("Screenshot" + count + ".png saved to your desktop\n");
 				count++;
 				
 			}
@@ -130,6 +130,7 @@ public class parserMenuBar extends JMenuBar {
 					+ "1.0.0 : (24 OCT 2019) Initial release\n"
 					+ "1.0.1 : (29 OCT 2019) Corrected year formatting issues\n"
 					+ "1.0.2 : (30 OCT 2019) Project Rename and fixed Keyword Sets\n"
+					+ "1.0.3 : (31 OCT 2019) Fixed hidden, non-ascii characters in strings\n"
 					);
 			
 		}

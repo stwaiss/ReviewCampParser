@@ -35,7 +35,7 @@ public class screenCapPanel extends JPanel {
 				String desktopPath = javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory().getPath();
 				ImageIO.write(background, "png", new File (desktopPath + "\\screenshot" + count +".png"));
 				
-				System.out.println("Screenshot" + count + ".png saved to your desktop");
+				System.out.println("Screenshot" + count + ".png saved to your desktop\n");
 				count++;
 				
 			}

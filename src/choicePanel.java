@@ -151,7 +151,11 @@ public class choicePanel extends JPanel{
 
 			//Iterate over all the years 
 			for(int i = 0; i < 5; i++) {				
-				//Iterate over all the reviews 
+				//Iterate over all the reviews
+				
+				if(reviewsPerYear[i][0] == 0) {
+					break;
+				}
 				for(Review r : allReviewsList) {
 
 					//Pull the year out from the date of the current review 
@@ -274,11 +278,11 @@ public class choicePanel extends JPanel{
 				if(reviewsPerSeller[i][0] != null) { //Iterate over all the reviews
 					for(Review r : allReviewsList) {
 			  
-						//Pull the Seller out from the date of the current review 
+						//Pull the Seller out from the current review 
 						String thisReviewsSeller = r.getSeller();
 						  
-						//check to see if the year from this current review is the same as the year under analysis
-						if(thisReviewsSeller == reviewsPerSeller[i][0]) {
+						//check to see if the seller from this current review is the same as the seller under analysis
+						if(thisReviewsSeller.equalsIgnoreCase(reviewsPerSeller[i][0])) {
 						  
 							//switch case depending on value, and then add to that count 
 							double thisStarDouble = Double.valueOf(r.getStar()); 
