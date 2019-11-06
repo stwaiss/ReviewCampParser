@@ -14,6 +14,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class parserMenuBar extends JMenuBar {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	static int count = 1;
 	
 	public parserMenuBar() {
@@ -150,6 +155,7 @@ public class parserMenuBar extends JMenuBar {
 					+ "1.0.1 : (29 OCT 2019) Corrected year formatting issues\n"
 					+ "1.0.2 : (30 OCT 2019) Project Rename and fixed Keyword Sets\n"
 					+ "1.0.3 : (31 OCT 2019) Fixed hidden, non-ascii characters in strings\n"
+					+ "1.1.0 : (05 NOV 2019) Added business divisions to Keyword Sets\n"
 					);
 			
 		}

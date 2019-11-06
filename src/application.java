@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -28,7 +26,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class application {
 	public static Parser window;
-	public final static String VERSION_NUMBER = "1.0.3"; 
+	public final static String VERSION_NUMBER = "1.1.0"; 
 	
 	public static void main(String[] args) {
 		

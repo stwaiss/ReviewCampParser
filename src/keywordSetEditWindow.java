@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
@@ -19,12 +18,19 @@ import javax.swing.border.EmptyBorder;
 
 public class keywordSetEditWindow extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	static JComboBox divisionComboBox, productTypeComboBox;
 	static JTextField input;
 	static JButton addButton;
 	static JTextArea textArea = new JTextArea(20,10);
 	
 	
+	@SuppressWarnings("unchecked")
 	public keywordSetEditWindow() {
 		//Boilerplate JFrame methods
 		setTitle("Telescope " + application.VERSION_NUMBER + " - Keyword Viewer");
