@@ -33,10 +33,23 @@ public class screenCapPanel extends JPanel {
 				Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 				BufferedImage background = rbt.createScreenCapture(screenRect);
 				String desktopPath = javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory().getPath();
-				ImageIO.write(background, "png", new File (desktopPath + "\\screenshot" + count +".png"));
 				
-				System.out.println("Screenshot" + count + ".png saved to your desktop\n");
-				count++;
+				String productType = statsPanel.pSkuText.getText();
+				String graphType = null;
+				try {
+					graphType = choicePanel.group.getSelection().getActionCommand();
+				} catch(NullPointerException npe) {}
+				
+				
+				if(productType != null && graphType != null) {
+					ImageIO.write(background, "png", new File (desktopPath + "\\" + productType +" - " + graphType +".png"));
+					System.out.println(productType + " - " +graphType + ".png saved to your desktop\n");
+				}
+				else {
+					ImageIO.write(background, "png", new File (desktopPath + "\\Screenshot" + count +".png"));
+					System.out.println("Screenshot" + count + ".png saved to your desktop\n");
+					count++;
+				}
 				
 			}
 			catch (Exception ex) {

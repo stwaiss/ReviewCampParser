@@ -164,6 +164,14 @@ public class pathPanel extends JPanel{
 					
 					Parser.graphPanel.setProductType(productType);			
 					statsPanel.fillStatPanelStats();
+					
+					//Force total star ratings graph to be displayed on GUI by
+					//triggering action listener on radio button
+					for(ActionListener a: choicePanel.getOptions()[0].getActionListeners()) {
+						a.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+					}
+					
+					choicePanel.getOptions()[0].setSelected(true);
 				}
 
 				catch (IOException f) {

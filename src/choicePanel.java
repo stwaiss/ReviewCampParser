@@ -23,7 +23,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class choicePanel extends JPanel{
 	
 	private static JRadioButton[] options = new JRadioButton[5];
-	ButtonGroup group = new ButtonGroup();
+	public static ButtonGroup group = new ButtonGroup();
+	
 	public choicePanel() {
 		
 		//set border and layout type
@@ -31,19 +32,24 @@ public class choicePanel extends JPanel{
 		setBorder(new EmptyBorder((new Insets(20,20,20,20))));
 		
 		//define options array to include 4 JRadioButtons
-		options[0] = new JRadioButton("By Star Rating");
+		options[0] = new JRadioButton("Total Star Rating");
+		options[0].setActionCommand("Total Star Rating");
 		options[0].addActionListener(new totalStarRatingListener());
 		
-		options[1] = new JRadioButton("By Star Rating vs Year");
+		options[1] = new JRadioButton("Star Rating vs Year");
+		options[1].setActionCommand("Star Rating vs Year");
 		options[1].addActionListener(new starRatingVsYearListener());
 		
-		options[2] = new JRadioButton("By Star Rating vs Seller");
+		options[2] = new JRadioButton("Star Rating vs Seller");
+		options[2].setActionCommand("Star Rating vs Seller");
 		options[2].addActionListener(new starRatingVsSellerListener());
 		
 		options[3] = new JRadioButton("Keyword Pareto");
+		options[3].setActionCommand("Keyword Pareto");
 		options[3].addActionListener(new keywordParetoListener());
 		
 		options[4] = new JRadioButton("Custom Keyword Search");
+		options[4].setActionCommand("Custom Keyword Search");
 		options[4].addActionListener(new customKeywordSearchListener());
 		
 		//add the radio buttons to the group and to the pane, and also add separators for space
@@ -52,6 +58,10 @@ public class choicePanel extends JPanel{
 			add(b);
 			this.add(Box.createRigidArea(new Dimension(0,15)));
 		}	
+	}
+	
+	public static JRadioButton[] getOptions() {
+		return options;
 	}
 	
 	//*******************************************************************************************************
