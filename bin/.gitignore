@@ -1,4 +1,3 @@
-/Parser.class
 /Review.class
 /TextAreaOutputStream.class
 /application.class
@@ -21,14 +20,15 @@
 /keywordSetEditWindow$productTypetoKeywordComboBoxActionListener.class
 /keywordSetEditWindow.class
 /parserMenuBar$aboutMenuListener.class
+/parserMenuBar$screenCapListener.class
+/parserMenuBar.class
 /parserMenuBar$addProductTypesListener.class
 /parserMenuBar$editAllSetsListener.class
 /parserMenuBar$exitListener.class
-/parserMenuBar$screenCapListener.class
 /parserMenuBar$versionHistoryMenuListener.class
-/parserMenuBar.class
 /pathPanel$fileFindBtnListener.class
 /pathPanel.class
 /screenCapPanel$submitBtnListener.class
 /screenCapPanel.class
 /statsPanel.class
+/choicePanel$keywordVsYearListener.class

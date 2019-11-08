@@ -22,7 +22,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class choicePanel extends JPanel{
 	
-	private static JRadioButton[] options = new JRadioButton[5];
+	private static JRadioButton[] options = new JRadioButton[6];
 	public static ButtonGroup group = new ButtonGroup();
 	
 	public choicePanel() {
@@ -51,6 +51,10 @@ public class choicePanel extends JPanel{
 		options[4] = new JRadioButton("Custom Keyword Search");
 		options[4].setActionCommand("Custom Keyword Search");
 		options[4].addActionListener(new customKeywordSearchListener());
+		
+		options[5] = new JRadioButton("Keyword vs Year");
+		options[5].setActionCommand("Keyword vs Year");
+		options[5].addActionListener(new keywordVsYearListener());
 		
 		//add the radio buttons to the group and to the pane, and also add separators for space
 		for (JRadioButton b: options) {
@@ -508,6 +512,143 @@ public class choicePanel extends JPanel{
 			customKeywordSearcher cks = new customKeywordSearcher();
 		}
 	}
+
+	//*******************************************************************************************************
+	public static class keywordVsYearListener implements ActionListener {
+		public String keyword = "";
+		
+		public void actionPerformed(ActionEvent e) {
+
+			//Prompt for keyword
+			int count = 0;
+			keyword = "";
+			do {
+				count++;
+				keyword = (String) JOptionPane.showInputDialog(null, "Enter keyword to analyze");
+			} while (keyword == "" && count < 2);
+			
+			keyword = keyword.toLowerCase();
+			
+			
+			//Only do something if there are reviews in the system
+			if(Parser.getReviews().size() != 0) {
+				//System.out.println("Doing something");
+				JFreeChart barChart = ChartFactory.createBarChart(
+						statsPanel.pSkuText.getText() + " - \"" + keyword + "\" vs Year ",
+						"Star Rating",
+						"Percentage (%)",
+						createDataset(),
+						PlotOrientation.VERTICAL,
+						true,
+						true,
+						false);
+				
+				ChartPanel myChart = new ChartPanel(barChart);
+				
+				Parser.graphPanel.removeAll();
+				Parser.graphPanel.updateUI();
+				Parser.graphPanel.add(myChart, BorderLayout.CENTER);
+				Parser.graphPanel.validate();
+				
+			}
+			else {
+				return;
+			}
+		}
+
+		private CategoryDataset createDataset() {	
+
+			final String[] starLabels = {"1 Star", "2 Star","3 Star", "4 Star", "5 Star"}; 
+			final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+					
+			List<Review> allReviewsList = Parser.getReviews();
+			List<Review> reviewListContainingKeyword = new ArrayList<Review>();
+			
+			//If review contains keyword, add to list
+			for(Review review : allReviewsList) {
+				try {
+					if(review.getBody().toLowerCase().contains(keyword)) {
+						reviewListContainingKeyword.add(review);
+					}
+				} catch(NullPointerException npe) {
+					
+				}
+				
+			}
+				
+			// create a year x 6 array to hold star ratings per year 
+			int[][] reviewsPerYear = new int[5][7];	
+			
+			// pull the years from year distribution 
+			String[][] yearDistribution = statsPanel.yearDistribution();
+			
+			//iterate through array and assign the years into the reviewsPerYear, year column 
+			for(int i = 0; i < 5; i++) { 
+				if(yearDistribution[i][0] != null) {
+					reviewsPerYear[i][0] = Integer.valueOf(yearDistribution[i][0]); 
+				} 
+			}
+			
+			//Iterate over all the years 
+			for(int i = 0; i < 5; i++) {		
+				
+				//Iterate over all the reviews
+				if(reviewsPerYear[i][0] == 0) {
+					break;
+				}
+				for(Review r : reviewListContainingKeyword) {
+	
+					//Pull the year out from the date of the current review 
+					String thisReviewsYear = r.getDate().split("-")[statsPanel.yearPosition];
+	
+					//check to see if the year from this current review is the same as the year under analysis 
+					if(Integer.valueOf(thisReviewsYear) == reviewsPerYear[i][0]) {
+	
+						//switch case depending on value, and then add to that count 
+						double thisStarDouble = Double.valueOf(r.getStar());
+						int thisStarInt = (int) thisStarDouble; 
+										
+						
+						switch(thisStarInt) { 
+							case 1: 
+								reviewsPerYear[i][1]++; 
+								reviewsPerYear[i][6]++; 
+								break;
+			
+							case 2: 
+								reviewsPerYear[i][2]++;
+								reviewsPerYear[i][6]++;
+								break; 
+							
+							case 3: 
+								reviewsPerYear[i][3]++; 
+								reviewsPerYear[i][6]++;
+								break;
+							
+							case 4: 
+								reviewsPerYear[i][4]++; 
+								reviewsPerYear[i][6]++;
+								break; 
+								
+							case 5: 
+								reviewsPerYear[i][5]++; 
+								reviewsPerYear[i][6]++;
+								break;
+							default: 
+								break;
+						}//end switch case 
+					}//end if 
+				}//end inner loop
+	
+				dataset.addValue(((double) reviewsPerYear[i][1]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[0]);
+				dataset.addValue(((double) reviewsPerYear[i][2]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[1]);
+				dataset.addValue(((double) reviewsPerYear[i][3]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[2]);
+				dataset.addValue(((double) reviewsPerYear[i][4]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[3]);
+				dataset.addValue(((double) reviewsPerYear[i][5]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[4]);
+					
+			}//end outer loop			
+			
+			return dataset;			
+		}
+	}
 }
-
-
