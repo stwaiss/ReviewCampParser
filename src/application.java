@@ -37,8 +37,7 @@ public class application {
 		  catch (ClassNotFoundException | InstantiationException |
 				  IllegalAccessException | UnsupportedLookAndFeelException e) { // TODO
 			  // Auto-generated catch block 
-			  e.printStackTrace(); 
-			  }
+		  }
 		 
 		window = new Parser();
 		window.setVisible(true);

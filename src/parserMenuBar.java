@@ -156,8 +156,8 @@ public class parserMenuBar extends JMenuBar {
 					+ "1.0.2 : (30 OCT 2019) Project Rename and fixed Keyword Sets\n"
 					+ "1.0.3 : (31 OCT 2019) Fixed hidden, non-ascii characters in strings\n"
 					+ "1.1.0 : (05 NOV 2019) Added business divisions to Keyword Sets\n"
+					+ "1.2.0 : (11 NOV 2019) Added keyword star ratings over time\n"
 					);
-			
 		}
 	}
 }
