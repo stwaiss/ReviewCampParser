@@ -517,21 +517,23 @@ public class choicePanel extends JPanel{
 	public static class keywordVsYearListener implements ActionListener {
 		public String keyword = "";
 		
-		public void actionPerformed(ActionEvent e) {
-
-			//Prompt for keyword
-			int count = 0;
-			keyword = "";
-			do {
-				count++;
-				keyword = (String) JOptionPane.showInputDialog(null, "Enter keyword to analyze");
-			} while (keyword == "" && count < 2);
-			
-			keyword = keyword.toLowerCase();
-			
+		public void actionPerformed(ActionEvent e) {	
 			
 			//Only do something if there are reviews in the system
 			if(Parser.getReviews().size() != 0) {
+				
+				//Prompt for keyword
+				int count = 0;
+				keyword = "";
+				do {
+					count++;
+					keyword = (String) JOptionPane.showInputDialog(null, "Enter keyword to analyze");
+				} while (keyword == "" && count < 2);
+				
+				keyword = keyword.toLowerCase();
+				
+				
+				
 				//System.out.println("Doing something");
 				JFreeChart barChart = ChartFactory.createBarChart(
 						statsPanel.pSkuText.getText() + " - \"" + keyword + "\" vs Year ",
@@ -640,11 +642,19 @@ public class choicePanel extends JPanel{
 					}//end if 
 				}//end inner loop
 	
-				dataset.addValue(((double) reviewsPerYear[i][1]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[0]);
-				dataset.addValue(((double) reviewsPerYear[i][2]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[1]);
-				dataset.addValue(((double) reviewsPerYear[i][3]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[2]);
-				dataset.addValue(((double) reviewsPerYear[i][4]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[3]);
-				dataset.addValue(((double) reviewsPerYear[i][5]/ (double) reviewsPerYear[i][6]) * 100, String.valueOf(reviewsPerYear[i][0]), starLabels[4]);
+				dataset.addValue(((double) reviewsPerYear[i][1] / (double) reviewsPerYear[i][6]) * 100.0 , String.valueOf(reviewsPerYear[i][0]), starLabels[0]);
+				dataset.addValue(((double) reviewsPerYear[i][2] / (double) reviewsPerYear[i][6]) * 100.0 , String.valueOf(reviewsPerYear[i][0]), starLabels[1]);
+				dataset.addValue(((double) reviewsPerYear[i][3] / (double) reviewsPerYear[i][6]) * 100.0 , String.valueOf(reviewsPerYear[i][0]), starLabels[2]);
+				dataset.addValue(((double) reviewsPerYear[i][4] / (double) reviewsPerYear[i][6]) * 100.0 , String.valueOf(reviewsPerYear[i][0]), starLabels[3]);
+				dataset.addValue(((double) reviewsPerYear[i][5] / (double) reviewsPerYear[i][6]) * 100.0 , String.valueOf(reviewsPerYear[i][0]), starLabels[4]);
+					
+				
+				
+//				dataset.addValue(((double) reviewsPerYear[i][1]), String.valueOf(reviewsPerYear[i][0]), starLabels[0]);
+//				dataset.addValue(((double) reviewsPerYear[i][2]), String.valueOf(reviewsPerYear[i][0]), starLabels[1]);
+//				dataset.addValue(((double) reviewsPerYear[i][3]), String.valueOf(reviewsPerYear[i][0]), starLabels[2]);
+//				dataset.addValue(((double) reviewsPerYear[i][4]), String.valueOf(reviewsPerYear[i][0]), starLabels[3]);
+//				dataset.addValue(((double) reviewsPerYear[i][5]), String.valueOf(reviewsPerYear[i][0]), starLabels[4]);
 					
 			}//end outer loop			
 			
